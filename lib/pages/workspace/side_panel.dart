@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:code_playground/components/material_container.dart';
 
 class SideDrawer extends StatelessWidget {
   final bool open;
@@ -14,18 +15,13 @@ class SideDrawer extends StatelessWidget {
       curve: Curves.easeInOut,
       width: width,
       clipBehavior: Clip.hardEdge,
-      duration: const Duration(milliseconds: 3500),
+      duration: const Duration(milliseconds: 350),
       alignment: Alignment.topRight,
       decoration: BoxDecoration(),
       child: Padding(
         padding: const EdgeInsets.only(right: 16.0),
-        child: Material(
+        child: MaterialContainer(
           elevation: 1,
-          borderRadius: BorderRadius.all(Radius.circular(32)),
-          clipBehavior: Clip.hardEdge,
-          shadowColor: Colors.transparent,
-          surfaceTintColor: Theme.of(context).colorScheme.primary,
-          color: Colors.transparent,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SizedBox(
@@ -33,7 +29,7 @@ class SideDrawer extends StatelessWidget {
               child: SizedBox.expand(
                 child: Column(
                   children: [
-                    Text("hello world"),
+                    Text(""),
                   ],
                 ),
               ),

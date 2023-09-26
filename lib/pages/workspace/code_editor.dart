@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:code_playground/components/material_container.dart';
 
 class CodeEditor extends StatelessWidget {
-  final String code;
+  final List<String> code;
 
   const CodeEditor({
     super.key,
@@ -15,19 +16,16 @@ class CodeEditor extends StatelessWidget {
         padding: const EdgeInsets.all(32.0),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: Wrap(
+          child: Column(
             // mainAxisSize: MainAxisSize.min,
-            spacing: 8,
-            runSpacing: 16,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            // spacing: 8,
+            // runSpacing: 16,
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ...code
-                  .split(RegExp("\\s|\\n|\\t"))
-                  .where((element) => element.trim().length > 0)
-                  .toList()
-                  .map((e) {
+              ...code.map((e) {
                 return Padding(
-                  padding: const EdgeInsets.only(right: 0),
+                  padding: const EdgeInsets.only(bottom: 16),
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     decoration: BoxDecoration(
