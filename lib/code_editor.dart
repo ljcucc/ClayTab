@@ -17,6 +17,8 @@ class CodeEditor extends StatelessWidget {
           scrollDirection: Axis.vertical,
           child: Wrap(
             // mainAxisSize: MainAxisSize.min,
+            spacing: 8,
+            runSpacing: 16,
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ...code
@@ -25,7 +27,7 @@ class CodeEditor extends StatelessWidget {
                   .toList()
                   .map((e) {
                 return Padding(
-                  padding: const EdgeInsets.only(right: 8),
+                  padding: const EdgeInsets.only(right: 0),
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     decoration: BoxDecoration(

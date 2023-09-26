@@ -1,5 +1,6 @@
 import 'package:code_playground/code_editor.dart';
 import 'package:code_playground/files_tab.dart';
+import 'package:code_playground/side_drawer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Color.fromARGB(255, 255, 102, 0),
-          brightness: Brightness.dark,
+          // brightness: Brightness.dark,
         ),
         useMaterial3: true,
       ),
@@ -37,6 +38,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool sidePanelOpen = false;
+
   @override
   void initState() {
     super.initState();
@@ -59,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
             centerTitle: true,
             backgroundColor: Colors.transparent,
             leading: Material(
-              elevation: 12,
+              elevation: 1,
               borderRadius: BorderRadius.all(Radius.circular(100)),
               clipBehavior: Clip.hardEdge,
               shadowColor: Colors.transparent,
@@ -67,7 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.transparent,
               child: IconButton(
                 padding: EdgeInsets.zero,
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    sidePanelOpen = !sidePanelOpen;
+                  });
+                },
                 icon: Icon(Icons.menu),
               ),
             ),
@@ -91,18 +98,26 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           body: Padding(
             padding: EdgeInsets.only(top: 16),
-            child: Material(
-              elevation: 1,
-              clipBehavior: Clip.hardEdge,
-              surfaceTintColor: Theme.of(context).colorScheme.primary,
-              shadowColor: Colors.transparent,
-              borderRadius: BorderRadius.all(Radius.circular(32)),
-              color: Theme.of(context).colorScheme.surface,
-              child: CodeEditor(
-                code:
-                    "Start Padding\n\t\t\t\tStart EdgeInset.only top 18 End\nEnd Padding",
-                // "",
-              ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SideDrawer(open: sidePanelOpen),
+                Expanded(
+                  child: Material(
+                    elevation: 1,
+                    clipBehavior: Clip.hardEdge,
+                    surfaceTintColor: Theme.of(context).colorScheme.primary,
+                    shadowColor: Colors.transparent,
+                    borderRadius: BorderRadius.all(Radius.circular(32)),
+                    color: Theme.of(context).colorScheme.surface,
+                    child: CodeEditor(
+                      code:
+                          "Start Padding\n\t\t\t\tStart EdgeInset.only top 18 End\nEnd Padding",
+                      // "",
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           // floatingActionButton: FloatingActionButton(
