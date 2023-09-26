@@ -23,7 +23,7 @@ class _FilesTabState extends State<FilesTab> {
       };
       ButtonStyle? style = ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(
-          Theme.of(context).colorScheme.surfaceVariant,
+          Theme.of(context).colorScheme.primary.withOpacity(.15),
         ),
       );
       final child = Padding(
@@ -36,9 +36,10 @@ class _FilesTabState extends State<FilesTab> {
       return Padding(
         padding: const EdgeInsets.only(right: 4),
         child: SizedBox(
-          child: TextButton(
+          child: TextButton.icon(
+            icon: Icon(Icons.info_outline),
             onPressed: onPressed,
-            child: child,
+            label: child,
             style: style,
           ),
         ),
@@ -49,9 +50,20 @@ class _FilesTabState extends State<FilesTab> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 8),
-      child: Row(
-        children: generate(widget.files),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(100)),
+        ),
+        constraints: const BoxConstraints(maxWidth: 500),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: generate(widget.files),
+          ),
+        ),
       ),
     );
   }

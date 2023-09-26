@@ -1,3 +1,4 @@
+import 'package:code_playground/code_editor.dart';
 import 'package:code_playground/files_tab.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Color background = Theme.of(context).colorScheme.surfaceVariant;
 
     return Material(
-      elevation: 12,
+      elevation: 0,
       surfaceTintColor: Theme.of(context).colorScheme.primary,
       shadowColor: Colors.transparent,
       color: Theme.of(context).colorScheme.surface,
@@ -55,10 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            centerTitle: false,
+            centerTitle: true,
             backgroundColor: Colors.transparent,
             leading: Material(
-              elevation: 8,
+              elevation: 12,
               borderRadius: BorderRadius.all(Radius.circular(100)),
               clipBehavior: Clip.hardEdge,
               shadowColor: Colors.transparent,
@@ -79,14 +80,12 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "My Planner",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
+                FilesTab(
+                  files: [
+                    "Interactive",
+                    "Text",
+                  ],
                 ),
-                Text("saved minute ago",
-                    style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
           ),
@@ -99,21 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
               shadowColor: Colors.transparent,
               borderRadius: BorderRadius.all(Radius.circular(32)),
               color: Theme.of(context).colorScheme.surface,
-              child: SizedBox.expand(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    FilesTab(
-                      files: ["main.dart", "list.dart"],
-                    ),
-                    Text(
-                      "hello world",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                      ),
-                    ),
-                  ],
-                ),
+              child: CodeEditor(
+                code:
+                    "Start Padding\n\t\t\t\tStart EdgeInset.only top 18 End\nEnd Padding",
+                // "",
               ),
             ),
           ),
