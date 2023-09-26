@@ -12,7 +12,7 @@ class SideDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = open ? 316 : 0;
     return AnimatedContainer(
-      curve: Curves.easeInOut,
+      curve: Curves.easeOutQuart,
       width: width,
       clipBehavior: Clip.hardEdge,
       duration: const Duration(milliseconds: 350),

@@ -1,8 +1,5 @@
-import 'package:code_playground/components/material_container.dart';
-
 import 'package:code_playground/pages/workspace/code_editor.dart';
 import 'package:code_playground/pages/workspace/main_layout.dart';
-import 'package:code_playground/pages/workspace/side_panel.dart';
 import 'package:flutter/material.dart';
 
 void main() {
