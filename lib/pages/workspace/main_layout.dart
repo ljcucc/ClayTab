@@ -21,6 +21,7 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
+      scrolledUnderElevation: 0,
       centerTitle: true,
       backgroundColor: Colors.transparent,
       leading: Container(),
