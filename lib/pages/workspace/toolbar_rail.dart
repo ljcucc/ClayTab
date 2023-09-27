@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 
 class ToolbarItem extends StatelessWidget {
   final Icon icon;
+  final Color? backgroundColor;
 
   const ToolbarItem({
     super.key,
     required this.icon,
+    this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.resolveWith((states) {
+          return backgroundColor ?? Colors.transparent ?? backgroundColor;
+        }),
         shape: MaterialStateProperty.resolveWith((states) {
           return RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
@@ -41,7 +46,7 @@ class _ToolbarRailState extends State<ToolbarRail> {
 
     return SafeArea(
       // minimum: EdgeInsets.only(top: 8),
-      child: const Padding(
+      child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
@@ -55,10 +60,13 @@ class _ToolbarRailState extends State<ToolbarRail> {
                 direction: Axis.vertical,
                 children: [
                   ToolbarItem(
-                    icon: Icon(Icons.folder_outlined, size: 24),
+                    icon: Icon(Icons.folder_open, size: 24),
                   ),
                   ToolbarItem(
-                    icon: Icon(Icons.timeline, size: 24),
+                    icon: Icon(Icons.account_tree_rounded, size: 24),
+                  ),
+                  ToolbarItem(
+                    icon: Icon(Icons.table_view, size: 24),
                   ),
                 ],
               ),

@@ -6,6 +6,7 @@ class MaterialContainer extends StatelessWidget {
   final Widget child;
   final BorderRadius? borderRadius;
   Color? backgroundColor;
+  Color? surfaceTint;
 
   MaterialContainer({
     super.key,
@@ -13,6 +14,7 @@ class MaterialContainer extends StatelessWidget {
     required this.child,
     this.borderRadius,
     this.backgroundColor,
+    this.surfaceTint,
   });
 
   @override
@@ -22,7 +24,7 @@ class MaterialContainer extends StatelessWidget {
       borderRadius: borderRadius ?? BorderRadius.all(Radius.circular(32)),
       clipBehavior: Clip.hardEdge,
       shadowColor: Colors.transparent,
-      surfaceTintColor: Theme.of(context).colorScheme.primary,
+      surfaceTintColor: surfaceTint ?? Theme.of(context).colorScheme.primary,
       color: backgroundColor ?? Colors.transparent,
       child: child,
     );

@@ -28,7 +28,13 @@ class _MainLayoutState extends State<MainLayout> {
       leading: Container(),
       actions: [
         ToolbarItem(
-          icon: Icon(Icons.more_vert),
+          icon: Icon(Icons.smartphone),
+        ),
+        SizedBox(
+          width: 8,
+        ),
+        ToolbarItem(
+          icon: Icon(Icons.info_outline),
         )
       ],
     );

@@ -32,21 +32,23 @@ class CodeBlock extends StatelessWidget {
             width: 50.0 * info.indent,
           ),
           MaterialContainer(
-            elevation: 12,
+            elevation: 24,
             borderRadius: BorderRadius.circular(16),
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            surfaceTint: Theme.of(context).colorScheme.primary,
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 32),
-              constraints: BoxConstraints(minWidth: 500),
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+              constraints: BoxConstraints(minWidth: 250),
               // decoration: BoxDecoration(
               //   color: Theme.of(context).colorScheme.surfaceVariant,
               //   borderRadius: BorderRadius.all(Radius.circular(32)),
               // ),
               child: Text(
                 info.disp,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      // fontWeight: FontWeight.w400,
+                    ),
               ),
             ),
           ),
@@ -104,7 +106,7 @@ class _ReorderableCodesState extends State<ReorderableCodes> {
         return CodeBlockListTile(
           index: e.key,
           info: CodeBlockInfo(
-            indent: e.key,
+            indent: 0,
             disp: e.value,
           ),
           key: Key("${e.key}"),
