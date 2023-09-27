@@ -2,13 +2,67 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:code_playground/components/material_container.dart';
 
-class CodeBlock extends StatelessWidget {
+class CodeBlockInfo {
   final String disp;
-  final int index;
+  final int indent;
+
+  CodeBlockInfo({
+    required this.disp,
+    required this.indent,
+  });
+}
+
+class CodeBlock extends StatelessWidget {
+  final CodeBlockInfo info;
 
   const CodeBlock({
     super.key,
-    required this.disp,
+    required this.info,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        children: [
+          AnimatedContainer(
+            duration: Duration(milliseconds: 350),
+            curve: Curves.easeOutQuart,
+            width: 50.0 * info.indent,
+          ),
+          MaterialContainer(
+            elevation: 12,
+            borderRadius: BorderRadius.circular(16),
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+              constraints: BoxConstraints(minWidth: 500),
+              // decoration: BoxDecoration(
+              //   color: Theme.of(context).colorScheme.surfaceVariant,
+              //   borderRadius: BorderRadius.all(Radius.circular(32)),
+              // ),
+              child: Text(
+                info.disp,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CodeBlockListTile extends StatelessWidget {
+  final CodeBlockInfo info;
+  final int index;
+
+  const CodeBlockListTile({
+    super.key,
+    required this.info,
     required this.index,
   });
 
@@ -16,22 +70,8 @@ class CodeBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReorderableDragStartListener(
       index: index,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 16),
-        child: Container(
-          padding: EdgeInsets.all(16),
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceVariant,
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-          ),
-          child: Text(
-            disp,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
+      child: CodeBlock(
+        info: info,
       ),
     );
   }
@@ -61,9 +101,12 @@ class _ReorderableCodesState extends State<ReorderableCodes> {
   Widget build(BuildContext context) {
     final lines = [
       ...widget.strings.asMap().entries.map((e) {
-        return CodeBlock(
+        return CodeBlockListTile(
           index: e.key,
-          disp: e.value,
+          info: CodeBlockInfo(
+            indent: e.key,
+            disp: e.value,
+          ),
           key: Key("${e.key}"),
         );
       }),
@@ -133,12 +176,10 @@ class CodeEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: Padding(
-        padding: const EdgeInsets.all(32.0),
-        child: ReorderableCodes(
-          strings: code,
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: ReorderableCodes(
+        strings: code,
       ),
     );
   }
