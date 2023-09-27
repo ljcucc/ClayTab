@@ -1,4 +1,5 @@
 import 'package:code_playground/pages/workspace/side_panel.dart';
+import 'package:code_playground/pages/workspace/toolbar_rail.dart';
 import 'package:flutter/material.dart';
 import 'package:code_playground/components/material_container.dart';
 
@@ -26,16 +27,18 @@ class _MainLayoutState extends State<MainLayout> {
       backgroundColor: Colors.transparent,
       leading: Container(),
       actions: [
-        IconButton(
-          onPressed: () {},
+        ToolbarItem(
           icon: Icon(Icons.more_vert),
         )
       ],
     );
 
+    final toolbarRail = ToolbarRail();
+
     final centerWorkspace = Expanded(
       child: MaterialContainer(
-        elevation: 1,
+        borderRadius: BorderRadius.circular(20),
+        elevation: 2,
         child: widget.body,
       ),
     );
@@ -84,6 +87,10 @@ class _MainLayoutState extends State<MainLayout> {
           icon: Icon(Icons.timeline),
           label: Text("Version"),
         ),
+        NavigationRailDestination(
+          icon: Icon(Icons.settings),
+          label: Text("Settings"),
+        ),
       ],
     );
 
@@ -92,11 +99,13 @@ class _MainLayoutState extends State<MainLayout> {
       child: SafeArea(
         minimum: EdgeInsets.all(16).copyWith(
           left: 0,
-          top: 0,
+          // top: 8,
         ),
         child: Row(
           children: [
-            navigationRail,
+            // navigationRail,
+
+            toolbarRail,
             Expanded(
               child: Scaffold(
                 backgroundColor: Colors.transparent,

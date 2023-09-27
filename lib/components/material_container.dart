@@ -5,12 +5,14 @@ class MaterialContainer extends StatelessWidget {
   final double elevation;
   final Widget child;
   final BorderRadius? borderRadius;
+  Color? backgroundColor;
 
-  const MaterialContainer({
+  MaterialContainer({
     super.key,
     required this.elevation,
     required this.child,
     this.borderRadius,
+    this.backgroundColor,
   });
 
   @override
@@ -21,7 +23,7 @@ class MaterialContainer extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       shadowColor: Colors.transparent,
       surfaceTintColor: Theme.of(context).colorScheme.primary,
-      color: Colors.transparent,
+      color: backgroundColor ?? Colors.transparent,
       child: child,
     );
   }

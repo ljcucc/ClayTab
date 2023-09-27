@@ -21,7 +21,7 @@ class SideDrawer extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(right: 16.0),
         child: MaterialContainer(
-          elevation: 1,
+          elevation: 0,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SizedBox(
