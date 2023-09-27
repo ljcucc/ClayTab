@@ -9,6 +9,27 @@ class CodeEditor extends StatelessWidget {
     required this.code,
   });
 
+  Widget line(String e) {
+    return Builder(builder: (context) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+          child: Text(
+            e,
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox.expand(
@@ -17,32 +38,8 @@ class CodeEditor extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
-            // mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            // spacing: 8,
-            // runSpacing: 16,
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ...code.map((e) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primaryContainer,
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                    ),
-                    child: Text(
-                      e,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          color:
-                              Theme.of(context).colorScheme.onPrimaryContainer,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                );
-              })
-            ],
+            children: [...code.map(line)],
           ),
         ),
       ),

@@ -52,9 +52,13 @@ class _MainLayoutState extends State<MainLayout> {
 
     final navigationRail = NavigationRail(
       leading: MaterialContainer(
-        elevation: 1,
-        child: BackButton(
-          onPressed: () {},
+        elevation: 0,
+        child: SizedBox(
+          width: 50,
+          height: 50,
+          child: BackButton(
+            onPressed: () {},
+          ),
         ),
       ),
       groupAlignment: 0,
