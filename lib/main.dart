@@ -1,3 +1,4 @@
+import 'package:code_playground/components/code_editor/editor.dart';
 import 'package:code_playground/pages/workspace/code_editor.dart';
 import 'package:code_playground/pages/workspace/main_layout.dart';
 import 'package:flutter/material.dart';
@@ -49,10 +50,10 @@ class _MyHomePageState extends State<MyHomePage> {
     Color background = Theme.of(context).colorScheme.surfaceVariant;
 
     return MainLayout(
-      body: CodeEditor(code: [
-        "If A is lager than B",
-        "do somethig",
-        "End If",
+      body: CodeEditorWidget(lines: [
+        ["function", "(", "e", ")", "{"],
+        ["console", ".", "log", "(", '"hello world"', ")"],
+        ["}"],
       ]),
     );
   }
