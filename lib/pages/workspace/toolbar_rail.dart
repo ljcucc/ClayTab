@@ -47,7 +47,7 @@ class _ToolbarRailState extends State<ToolbarRail> {
     return SafeArea(
       // minimum: EdgeInsets.only(top: 8),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
           children: [
             ToolbarItem(

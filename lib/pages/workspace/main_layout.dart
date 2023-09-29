@@ -50,7 +50,7 @@ class _MainLayoutState extends State<MainLayout> {
     );
 
     final body = Padding(
-      padding: EdgeInsets.only(top: 16),
+      padding: EdgeInsets.only(top: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -102,25 +102,34 @@ class _MainLayoutState extends State<MainLayout> {
 
     return Container(
       color: Theme.of(context).colorScheme.surface,
-      child: SafeArea(
-        minimum: EdgeInsets.all(16).copyWith(
-          left: 0,
-          // top: 8,
-        ),
-        child: Row(
-          children: [
-            // navigationRail,
-
-            toolbarRail,
-            Expanded(
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                appBar: appBar,
-                body: body,
-              ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: FloatingTouchpadLayer(),
+          ),
+          SafeArea(
+            minimum: EdgeInsets.all(16).copyWith(
+              left: 0,
+              // top: 8,
             ),
-          ],
-        ),
+            child: Row(
+              children: [
+                // navigationRail,
+
+                toolbarRail,
+                Expanded(
+                  child: Scaffold(
+                    backgroundColor: Colors.transparent,
+                    appBar: appBar,
+                    body: body,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
