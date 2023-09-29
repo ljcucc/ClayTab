@@ -1,21 +1,39 @@
 import 'package:code_playground/pages/workspace/side_panel.dart';
 import 'package:code_playground/pages/workspace/toolbar_rail.dart';
+import 'package:code_playground/components/touchpad.dart';
 import 'package:flutter/material.dart';
 import 'package:code_playground/components/material_container.dart';
 
-class MainLayout extends StatefulWidget {
+class TopToolbar extends StatelessWidget {
+  const TopToolbar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        ToolbarItem(icon: Icon(Icons.undo)),
+        SizedBox(
+          width: 8,
+        ),
+        ToolbarItem(icon: Icon(Icons.redo)),
+      ],
+    );
+  }
+}
+
+class ExpandedLayout extends StatefulWidget {
   final Widget body;
 
-  const MainLayout({
+  const ExpandedLayout({
     super.key,
     required this.body,
   });
 
   @override
-  State<MainLayout> createState() => _MainLayoutState();
+  State<ExpandedLayout> createState() => _ExpandedLayoutState();
 }
 
-class _MainLayoutState extends State<MainLayout> {
+class _ExpandedLayoutState extends State<ExpandedLayout> {
   bool sideOpen = false;
   int cur = 0;
 
@@ -23,9 +41,10 @@ class _MainLayoutState extends State<MainLayout> {
   Widget build(BuildContext context) {
     final appBar = AppBar(
       scrolledUnderElevation: 0,
-      centerTitle: true,
+      // centerTitle: true,
       backgroundColor: Colors.transparent,
       leading: Container(),
+      // title: TopToolbar(),
       actions: [
         ToolbarItem(
           icon: Icon(Icons.smartphone),

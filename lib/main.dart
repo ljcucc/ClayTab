@@ -1,6 +1,7 @@
 import 'package:code_playground/components/code_editor/editor.dart';
 import 'package:code_playground/pages/workspace/code_editor.dart';
-import 'package:code_playground/pages/workspace/main_layout.dart';
+import 'package:code_playground/pages/workspace/layout/expanded.dart';
+import 'package:code_playground/pages/workspace/layout/main_layout.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -49,12 +50,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     Color background = Theme.of(context).colorScheme.surfaceVariant;
 
-    return MainLayout(
-      body: CodeEditorWidget(lines: [
-        ["function", "(", "e", ")", "{"],
-        ["console", ".", "log", "(", '"hello world"', ")"],
-        ["}"],
-      ]),
-    );
+    return MainLayout();
   }
 }

@@ -16,6 +16,7 @@ class DirectionButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(400),
           color: Theme.of(context).colorScheme.primary.withOpacity(.15)),
       child: InkWell(
+        borderRadius: BorderRadius.circular(400),
         onTap: () {},
         child: Container(
           constraints: BoxConstraints.expand(),
@@ -41,8 +42,8 @@ class DirectionButtonsGroup extends StatelessWidget {
       ),
       // width: double.infinity,
       child: MaterialContainer(
-        // backgroundColor: theme.surface,
-        elevation: 1,
+        backgroundColor: theme.surface,
+        elevation: 4,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Container(
@@ -52,19 +53,6 @@ class DirectionButtonsGroup extends StatelessWidget {
             ),
             child: const Column(
               children: [
-                Flexible(
-                  flex: 12,
-                  child: DirectionButton(
-                    icon: Icon(Icons.keyboard_arrow_up),
-                  ),
-                ),
-                SizedBox(height: 8),
-                Flexible(
-                    flex: 12,
-                    child: DirectionButton(
-                      icon: Icon(Icons.keyboard_arrow_down),
-                    )),
-                SizedBox(height: 8),
                 Flexible(
                   flex: 15,
                   child: Row(
@@ -87,6 +75,19 @@ class DirectionButtonsGroup extends StatelessWidget {
                     ],
                   ),
                 ),
+                SizedBox(height: 8),
+                Flexible(
+                  flex: 8,
+                  child: DirectionButton(
+                    icon: Icon(Icons.keyboard_arrow_up),
+                  ),
+                ),
+                SizedBox(height: 8),
+                Flexible(
+                    flex: 8,
+                    child: DirectionButton(
+                      icon: Icon(Icons.keyboard_arrow_down),
+                    )),
               ],
             ),
           ),
@@ -96,30 +97,32 @@ class DirectionButtonsGroup extends StatelessWidget {
   }
 }
 
-class Touchpad extends StatelessWidget {
-  const Touchpad({super.key});
+class DirectionTouchpad extends StatelessWidget {
+  const DirectionTouchpad({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
 
-    return Padding(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          AspectRatio(
-            aspectRatio: 1,
-            child: DirectionButtonsGroup(),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   // child: Text("hello fdhsaklfhdjklas"),
-          // ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          // aspectRatio: 1,
+          child: DirectionButtonsGroup(),
+        ),
+      ],
     );
+  }
+}
+
+class Touchpad extends StatelessWidget {
+  const Touchpad({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DirectionTouchpad();
   }
 }
 
@@ -130,14 +133,10 @@ class FloatingTouchpadLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       minimum: EdgeInsets.all(36),
-      child: MaterialContainer(
-        elevation: 0,
-        // backgroundColor: Theme.of(context).colorScheme.surface,
-        child: Container(
-          height: 300,
-          width: 250,
-          child: Touchpad(),
-        ),
+      child: Container(
+        height: 300,
+        width: 200,
+        child: Touchpad(),
       ),
     );
   }
