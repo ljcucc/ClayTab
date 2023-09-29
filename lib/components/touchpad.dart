@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 
 class DirectionButton extends StatelessWidget {
   final Widget icon;
+  final Color? color;
+  final double? opacity;
 
   const DirectionButton({
     super.key,
     required this.icon,
+    this.color,
+    this.opacity,
   });
 
   @override
@@ -14,7 +18,8 @@ class DirectionButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(400),
-          color: Theme.of(context).colorScheme.primary.withOpacity(.15)),
+          color: (color ?? Theme.of(context).colorScheme.primary)
+              .withOpacity(opacity ?? .15)),
       child: InkWell(
         borderRadius: BorderRadius.circular(400),
         onTap: () {},
@@ -28,6 +33,20 @@ class DirectionButton extends StatelessWidget {
   }
 }
 
+class DirectionTouchpad extends StatelessWidget {
+  const DirectionTouchpad({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(1000),
+          color: Theme.of(context).colorScheme.primary.withOpacity(.15)),
+      child: Container(),
+    );
+  }
+}
+
 class DirectionButtonsGroup extends StatelessWidget {
   const DirectionButtonsGroup({super.key});
 
@@ -35,61 +54,51 @@ class DirectionButtonsGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
 
+    final jumpInLineDPad = Row(
+      children: [
+        Flexible(
+          flex: 1,
+          child: DirectionButton(
+            icon: Icon(Icons.select_all),
+          ),
+        ),
+        SizedBox(
+          width: 8,
+        ),
+        Flexible(
+          flex: 3,
+          child: DirectionButton(
+            icon: Icon(Icons.edit_outlined),
+          ),
+        ),
+      ],
+    );
+
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
       ),
       // width: double.infinity,
-      child: MaterialContainer(
-        backgroundColor: theme.surface,
-        elevation: 4,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Container(
-            clipBehavior: Clip.hardEdge,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: const Column(
-              children: [
-                Flexible(
-                  flex: 15,
-                  child: Row(
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: DirectionButton(
-                          icon: Icon(Icons.first_page),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: DirectionButton(
-                          icon: Icon(Icons.last_page),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 8),
-                Flexible(
-                  flex: 8,
-                  child: DirectionButton(
-                    icon: Icon(Icons.keyboard_arrow_up),
-                  ),
-                ),
-                SizedBox(height: 8),
-                Flexible(
-                    flex: 8,
-                    child: DirectionButton(
-                      icon: Icon(Icons.keyboard_arrow_down),
-                    )),
-              ],
-            ),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 65,
+                child: jumpInLineDPad,
+              ),
+              SizedBox(height: 8),
+              Flexible(
+                flex: 3,
+                child: DirectionTouchpad(),
+              ),
+            ],
           ),
         ),
       ),
@@ -97,8 +106,8 @@ class DirectionButtonsGroup extends StatelessWidget {
   }
 }
 
-class DirectionTouchpad extends StatelessWidget {
-  const DirectionTouchpad({super.key});
+class Touchpad extends StatelessWidget {
+  const Touchpad({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -113,31 +122,6 @@ class DirectionTouchpad extends StatelessWidget {
           child: DirectionButtonsGroup(),
         ),
       ],
-    );
-  }
-}
-
-class Touchpad extends StatelessWidget {
-  const Touchpad({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return DirectionTouchpad();
-  }
-}
-
-class FloatingTouchpadLayer extends StatelessWidget {
-  const FloatingTouchpadLayer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      minimum: EdgeInsets.all(36),
-      child: Container(
-        height: 300,
-        width: 200,
-        child: Touchpad(),
-      ),
     );
   }
 }

@@ -2,6 +2,26 @@ import 'package:code_playground/components/material_container.dart';
 import 'package:code_playground/components/touchpad.dart';
 import 'package:flutter/material.dart';
 
+class CompactTouchpad extends StatelessWidget {
+  const CompactTouchpad({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Flexible(
+          flex: 1,
+          child: Container(),
+        ),
+        Flexible(
+          flex: 1,
+          child: Touchpad(),
+        ),
+      ],
+    );
+  }
+}
+
 class CompactLayout extends StatelessWidget {
   final Widget body;
 
@@ -29,20 +49,9 @@ class CompactLayout extends StatelessWidget {
               ),
             ),
             Container(
-              height: 300,
+              height: 220,
               padding: EdgeInsets.only(top: 16),
-              child: Row(
-                children: [
-                  Flexible(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Touchpad(),
-                  ),
-                ],
-              ),
+              child: CompactTouchpad(),
             ),
           ],
         ),

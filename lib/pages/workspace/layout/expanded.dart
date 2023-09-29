@@ -4,6 +4,26 @@ import 'package:code_playground/components/touchpad.dart';
 import 'package:flutter/material.dart';
 import 'package:code_playground/components/material_container.dart';
 
+class ExpandedTouchpad extends StatelessWidget {
+  const ExpandedTouchpad({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      minimum: EdgeInsets.all(36),
+      child: Container(
+        height: 350,
+        width: 300,
+        child: MaterialContainer(
+          elevation: 4,
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          child: Touchpad(),
+        ),
+      ),
+    );
+  }
+}
+
 class TopToolbar extends StatelessWidget {
   const TopToolbar({super.key});
 
@@ -126,7 +146,7 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
           Positioned(
             bottom: 0,
             right: 0,
-            child: FloatingTouchpadLayer(),
+            child: ExpandedTouchpad(),
           ),
           SafeArea(
             minimum: EdgeInsets.all(16).copyWith(
