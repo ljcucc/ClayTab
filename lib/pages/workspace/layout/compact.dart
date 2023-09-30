@@ -34,7 +34,7 @@ class CompactLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialContainer(
       borderRadius: BorderRadius.zero,
-      elevation: 24,
+      elevation: 12,
       backgroundColor: Theme.of(context).colorScheme.surface,
       child: SafeArea(
         minimum: EdgeInsets.symmetric(vertical: 32, horizontal: 16),
@@ -43,7 +43,7 @@ class CompactLayout extends StatelessWidget {
             Flexible(
               flex: 1,
               child: MaterialContainer(
-                elevation: 2,
+                elevation: 0,
                 backgroundColor: Theme.of(context).colorScheme.surface,
                 child: body,
               ),

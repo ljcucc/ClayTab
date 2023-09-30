@@ -82,8 +82,9 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
 
     final centerWorkspace = Expanded(
       child: MaterialContainer(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
-        elevation: 2,
+        elevation: 0,
         child: widget.body,
       ),
     );
@@ -99,55 +100,12 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
       ),
     );
 
-    final navigationRail = NavigationRail(
-      leading: MaterialContainer(
-        elevation: 0,
-        child: SizedBox(
-          width: 50,
-          height: 50,
-          child: BackButton(
-            onPressed: () {},
-          ),
-        ),
-      ),
-      groupAlignment: 0,
-      labelType: NavigationRailLabelType.all,
-      selectedIndex: cur,
-      onDestinationSelected: (selected) {
-        setState(() {
-          cur = selected;
-          sideOpen = cur != 0;
-        });
-      },
-      destinations: const [
-        NavigationRailDestination(
-          icon: Icon(Icons.code),
-          label: Text("Code"),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.folder),
-          label: Text("Files"),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.timeline),
-          label: Text("Version"),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Icons.settings),
-          label: Text("Settings"),
-        ),
-      ],
-    );
-
-    return Container(
-      color: Theme.of(context).colorScheme.surface,
+    return MaterialContainer(
+      elevation: 4,
+      borderRadius: BorderRadius.zero,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: Stack(
         children: [
-          Positioned(
-            bottom: 0,
-            right: 0,
-            child: ExpandedTouchpad(),
-          ),
           SafeArea(
             minimum: EdgeInsets.all(16).copyWith(
               left: 0,
@@ -155,8 +113,6 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
             ),
             child: Row(
               children: [
-                // navigationRail,
-
                 toolbarRail,
                 Expanded(
                   child: Scaffold(
@@ -167,6 +123,11 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
                 ),
               ],
             ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: ExpandedTouchpad(),
           ),
         ],
       ),
