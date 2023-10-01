@@ -3,9 +3,12 @@ import 'package:code_playground/components/material_container.dart';
 
 class SideDrawer extends StatelessWidget {
   final bool open;
+  final Widget child;
+
   const SideDrawer({
     super.key,
     required this.open,
+    required this.child,
   });
 
   @override
@@ -22,6 +25,7 @@ class SideDrawer extends StatelessWidget {
         padding: const EdgeInsets.only(right: 16.0),
         child: MaterialContainer(
           elevation: 0,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SizedBox(
@@ -29,7 +33,7 @@ class SideDrawer extends StatelessWidget {
               child: SizedBox.expand(
                 child: Column(
                   children: [
-                    Text(""),
+                    child,
                   ],
                 ),
               ),

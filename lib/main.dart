@@ -3,8 +3,13 @@ import 'package:code_playground/pages/workspace/code_editor.dart';
 import 'package:code_playground/pages/workspace/layout/expanded.dart';
 import 'package:code_playground/pages/workspace/layout/main_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  ));
   runApp(const MyApp());
 }
 
@@ -23,6 +28,7 @@ class MyApp extends StatelessWidget {
           // brightness: Brightness.dark,
         ),
         useMaterial3: true,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
     );
@@ -43,6 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ));
     super.initState();
   }
 

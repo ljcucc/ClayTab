@@ -56,8 +56,8 @@ class DirectionButtonsGroup extends StatelessWidget {
 
     final jumpInLineDPad = Row(
       children: [
-        Flexible(
-          flex: 1,
+        SizedBox(
+          width: 65,
           child: DirectionButton(
             icon: Icon(Icons.select_all),
           ),
@@ -89,14 +89,14 @@ class DirectionButtonsGroup extends StatelessWidget {
           ),
           child: Column(
             children: [
-              SizedBox(
-                height: 65,
-                child: jumpInLineDPad,
-              ),
-              SizedBox(height: 8),
               Flexible(
                 flex: 3,
                 child: DirectionTouchpad(),
+              ),
+              SizedBox(height: 8),
+              SizedBox(
+                height: 60,
+                child: jumpInLineDPad,
               ),
             ],
           ),

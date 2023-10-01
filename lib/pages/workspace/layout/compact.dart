@@ -9,10 +9,10 @@ class CompactTouchpad extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Flexible(
-          flex: 1,
-          child: Container(),
-        ),
+        // Flexible(
+        //   flex: 1,
+        //   child: Container(),
+        // ),
         Flexible(
           flex: 1,
           child: Touchpad(),
@@ -22,7 +22,7 @@ class CompactTouchpad extends StatelessWidget {
   }
 }
 
-class CompactLayout extends StatelessWidget {
+class CompactLayout extends StatefulWidget {
   final Widget body;
 
   const CompactLayout({
@@ -31,27 +31,51 @@ class CompactLayout extends StatelessWidget {
   });
 
   @override
+  State<CompactLayout> createState() => _CompactLayoutState();
+}
+
+class _CompactLayoutState extends State<CompactLayout> {
+  bool onType = false;
+
+  @override
   Widget build(BuildContext context) {
     return MaterialContainer(
       borderRadius: BorderRadius.zero,
       elevation: 12,
       backgroundColor: Theme.of(context).colorScheme.surface,
       child: SafeArea(
-        minimum: EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+        minimum: EdgeInsets.symmetric(vertical: 32, horizontal: 16)
+            .copyWith(bottom: 8),
         child: Column(
           children: [
             Flexible(
               flex: 1,
-              child: MaterialContainer(
-                elevation: 0,
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                child: body,
+              child: GestureDetector(
+                onTapDown: (detials) {
+                  setState(() {
+                    onType = false;
+                  });
+                },
+                child: MaterialContainer(
+                  elevation: 0,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  child: widget.body,
+                ),
               ),
             ),
-            Container(
-              height: 220,
-              padding: EdgeInsets.only(top: 16),
-              child: CompactTouchpad(),
+            AnimatedContainer(
+              duration: Duration(milliseconds: 600),
+              curve: Curves.easeOutQuint,
+              height: onType ? 350 : 170,
+              padding: EdgeInsets.only(top: 8),
+              child: GestureDetector(
+                onTapDown: (d) {
+                  setState(() {
+                    onType = true;
+                  });
+                },
+                child: CompactTouchpad(),
+              ),
             ),
           ],
         ),
