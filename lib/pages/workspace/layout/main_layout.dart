@@ -11,9 +11,26 @@ class MainLayout extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final body = CodeEditorWidget(
       lines: [
-        ["function", "(", "e", ")", "{"],
-        ["console", ".", "log", "(", '"hello world"', ")"],
-        ["}"],
+        LineInfo(indent: 0, list: [
+          TokenInfo(code: "function"),
+          TokenInfo(code: "main"),
+          TokenInfo(code: "("),
+          TokenInfo(code: "args"),
+          TokenInfo(code: ")"),
+          TokenInfo(code: "{"),
+        ]),
+        LineInfo(indent: 1, list: [
+          TokenInfo(code: "console"),
+          TokenInfo(code: "."),
+          TokenInfo(code: "log"),
+          TokenInfo(code: "("),
+          TokenInfo(code: "\"hello world\""),
+          TokenInfo(code: ")"),
+          TokenInfo(code: ";"),
+        ]),
+        LineInfo(indent: 0, list: [
+          TokenInfo(code: "}"),
+        ]),
       ],
     );
 
@@ -25,6 +42,9 @@ class MainLayout extends StatelessWidget {
 
     return ExpandedLayout(
       body: body,
+      // backgroundImage: NetworkImage(
+      //   "https://materia.press/wp-content/uploads/2022/03/BRIAN-THOREEN-40-scaled.jpg",
+      // ),
     );
   }
 }

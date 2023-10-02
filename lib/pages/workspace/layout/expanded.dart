@@ -98,13 +98,18 @@ class StyledExpandedLayoutContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme.primary;
+
     return Stack(
       children: [
         if (backgroundImage != null)
           Positioned.fill(
-            child: Image(
-              image: backgroundImage!,
-              fit: BoxFit.cover,
+            child: ColorFiltered(
+              colorFilter: ColorFilter.mode(color, BlendMode.hue),
+              child: Image(
+                image: backgroundImage!,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         MaterialContainer(
@@ -112,7 +117,7 @@ class StyledExpandedLayoutContainer extends StatelessWidget {
           borderRadius: BorderRadius.zero,
           backgroundColor: backgroundImage == null
               ? Theme.of(context).colorScheme.surface
-              : Theme.of(context).colorScheme.surface.withOpacity(.65),
+              : Theme.of(context).colorScheme.surface.withOpacity(.5),
           child: child,
         ),
       ],
@@ -203,7 +208,9 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
 
     final centerWorkspace = Expanded(
       child: MaterialContainer(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: widget.backgroundImage == null
+            ? Theme.of(context).colorScheme.surface
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(20),
         elevation: 0,
         child: widget.body,

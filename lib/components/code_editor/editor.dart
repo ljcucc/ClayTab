@@ -24,7 +24,40 @@ class TokenInfo {
   get disp => code;
 }
 
-class TokenBlock extends StatelessWidget {
+class LineInfo {
+  final int indent;
+  final List<TokenInfo> list;
+
+  LineInfo({
+    required this.indent,
+    required this.list,
+  });
+}
+
+class IndentBlock extends StatelessWidget {
+  const IndentBlock({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme.primaryContainer;
+
+    return Container(
+      // clipBehavior: Clip.hardEdge,
+      // decoration: BoxDecoration(
+      //   border: Border(
+      //     left: BorderSide(color: color, width: 8),
+      //   ),
+      // ),
+      width: 30,
+      child: Text(
+        " ",
+        style: GoogleFonts.robotoMono().copyWith(fontSize: 14),
+      ),
+    );
+  }
+}
+
+class TokenBlock extends StatefulWidget {
   final TokenInfo info;
 
   const TokenBlock({
@@ -33,18 +66,47 @@ class TokenBlock extends StatelessWidget {
   });
 
   @override
+  State<TokenBlock> createState() => _TokenBlockState();
+}
+
+class _TokenBlockState extends State<TokenBlock> {
+  bool _isHovered = false;
+  @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 350),
-      padding: const EdgeInsets.all(8),
-      clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Theme.of(context).colorScheme.primaryContainer.withOpacity(.45),
-      ),
-      child: Text(
-        info.disp,
-        style: GoogleFonts.robotoMono().copyWith(fontSize: 12),
+    final color = Theme.of(context).colorScheme.primaryContainer;
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: MouseRegion(
+        onHover: (e) {
+          setState(() {
+            _isHovered = true;
+          });
+        },
+        onExit: (e) {
+          setState(() {
+            _isHovered = false;
+          });
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 50),
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: color,
+            boxShadow: [
+              BoxShadow(
+                color: color,
+                offset: Offset(4, 0),
+                blurRadius: 0,
+              ),
+            ],
+          ),
+          child: Text(
+            widget.info.disp,
+            style: GoogleFonts.robotoMono().copyWith(fontSize: 14),
+          ),
+        ),
       ),
     );
   }
@@ -52,7 +114,7 @@ class TokenBlock extends StatelessWidget {
 
 class LineWidget extends StatelessWidget {
   final int linenumber;
-  final Line line;
+  final LineInfo line;
 
   const LineWidget({
     super.key,
@@ -62,25 +124,26 @@ class LineWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Wrap(
-        spacing: 4,
-        runSpacing: 4,
-        children: [
-          ...line.map((e) {
-            return TokenBlock(
-              info: TokenInfo(code: e),
-            );
-          }),
-        ],
-      ),
+    return Wrap(
+      // spacing: 4,
+      // runSpacing: 2,
+      children: [
+        // Indents
+        for (int i = 0; i < line.indent; i++) IndentBlock(),
+
+        // Tokens
+        ...line.list.map((token) {
+          return TokenBlock(
+            info: TokenInfo(code: token.disp),
+          );
+        }),
+      ],
     );
   }
 }
 
 class CodeEditorWidget extends StatelessWidget {
-  final LineList lines;
+  final List<LineInfo> lines;
   const CodeEditorWidget({
     super.key,
     required this.lines,
