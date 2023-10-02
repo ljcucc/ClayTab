@@ -62,21 +62,23 @@ class ToolbarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith((states) {
-          return backgroundColor ?? Colors.transparent ?? backgroundColor;
-        }),
-        shape: MaterialStateProperty.resolveWith((states) {
-          return RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          );
-        }),
-      ),
-      onPressed: onTap ?? () {},
-      icon: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: icon,
+    return SizedBox(
+      height: 48,
+      width: 48,
+      child: IconButton(
+        iconSize: 24,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith((states) {
+            return backgroundColor ?? Colors.transparent ?? backgroundColor;
+          }),
+          shape: MaterialStateProperty.resolveWith((states) {
+            return RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            );
+          }),
+        ),
+        onPressed: onTap ?? () {},
+        icon: icon,
       ),
     );
   }

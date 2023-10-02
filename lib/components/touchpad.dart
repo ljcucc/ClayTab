@@ -1,6 +1,8 @@
 import 'package:code_playground/components/material_container.dart';
 import 'package:flutter/material.dart';
 
+import 'package:material_color_utilities/material_color_utilities.dart';
+
 class DirectionButton extends StatelessWidget {
   final Widget icon;
   final Color? color;
@@ -94,8 +96,8 @@ class DirectionButtonsGroup extends StatelessWidget {
                 child: DirectionTouchpad(),
               ),
               SizedBox(height: 8),
-              SizedBox(
-                height: 60,
+              ConstrainedBox(
+                constraints: BoxConstraints(maxHeight: 60, minHeight: 30),
                 child: jumpInLineDPad,
               ),
             ],

@@ -15,15 +15,16 @@ class SideDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = open ? 316 : 0;
     return AnimatedContainer(
-      curve: Curves.easeOutQuart,
+      curve: Curves.easeOutQuint,
       width: width,
       clipBehavior: Clip.hardEdge,
       duration: const Duration(milliseconds: 350),
       alignment: Alignment.topRight,
       decoration: BoxDecoration(),
       child: Padding(
-        padding: const EdgeInsets.only(right: 16.0),
+        padding: const EdgeInsets.only(right: 12.0),
         child: MaterialContainer(
+          borderRadius: BorderRadius.circular(24),
           elevation: 0,
           backgroundColor: Theme.of(context).colorScheme.surface,
           child: SingleChildScrollView(

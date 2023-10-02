@@ -64,7 +64,7 @@ class _ToolbarRailState extends State<ToolbarRail> {
     return SafeArea(
       // minimum: EdgeInsets.only(top: 8),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
           children: [
             ToolbarItem(
@@ -86,12 +86,48 @@ class _ToolbarRailState extends State<ToolbarRail> {
   }
 }
 
+class StyledExpandedLayoutContainer extends StatelessWidget {
+  final ImageProvider? backgroundImage;
+  final Widget child;
+
+  const StyledExpandedLayoutContainer({
+    super.key,
+    this.backgroundImage,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        if (backgroundImage != null)
+          Positioned.fill(
+            child: Image(
+              image: backgroundImage!,
+              fit: BoxFit.cover,
+            ),
+          ),
+        MaterialContainer(
+          elevation: 4,
+          borderRadius: BorderRadius.zero,
+          backgroundColor: backgroundImage == null
+              ? Theme.of(context).colorScheme.surface
+              : Theme.of(context).colorScheme.surface.withOpacity(.65),
+          child: child,
+        ),
+      ],
+    );
+  }
+}
+
 class ExpandedLayout extends StatefulWidget {
   final Widget body;
+  final ImageProvider? backgroundImage;
 
   const ExpandedLayout({
     super.key,
     required this.body,
+    this.backgroundImage,
   });
 
   @override
@@ -110,14 +146,13 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
       scrolledUnderElevation: 0,
       centerTitle: false,
       backgroundColor: Colors.transparent,
+      toolbarHeight: 48,
       // leading: Container(),
-      title: TopToolbar(),
+      // title: TopToolbar(),
       actions: [
         ToggleToolbarItem(
-          iconOff: Icon(Icons.videogame_asset_off_outlined),
-          iconOn: Icon(
-            Icons.videogame_asset_outlined,
-          ),
+          iconOn: Icon(Icons.videogame_asset_off_outlined),
+          iconOff: Icon(Icons.videogame_asset_outlined),
           onTrunOff: () {
             setState(() {
               padOpen = false;
@@ -189,16 +224,14 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
       ),
     );
 
-    return MaterialContainer(
-      elevation: 4,
-      borderRadius: BorderRadius.zero,
-      backgroundColor: Theme.of(context).colorScheme.surface,
+    return StyledExpandedLayoutContainer(
+      backgroundImage: widget.backgroundImage,
       child: Stack(
         children: [
           SafeArea(
             minimum: EdgeInsets.all(16).copyWith(
               left: 0,
-              // top: 8,
+              top: 8,
             ),
             child: Row(
               children: [
@@ -217,14 +250,17 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
             bottom: 0,
             right: 0,
             child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 350),
-              switchInCurve: Curves.easeOutQuint,
-              switchOutCurve: Curves.easeOutQuint,
+              duration: Duration(milliseconds: 100),
+              switchOutCurve: Curves.easeInOut,
+              switchInCurve: Curves.easeInOut,
               transitionBuilder: (child, animation) {
-                final tween = Tween<double>(begin: 0.5, end: 1);
+                final tween = Tween<double>(begin: 0.95, end: 1);
                 return ScaleTransition(
                   scale: animation.drive(tween),
-                  child: child,
+                  child: FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
                 );
               },
               child: padOpen ? ExpandedTouchpad() : Container(),

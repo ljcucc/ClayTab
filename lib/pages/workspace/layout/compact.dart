@@ -44,7 +44,7 @@ class _CompactLayoutState extends State<CompactLayout> {
       elevation: 12,
       backgroundColor: Theme.of(context).colorScheme.surface,
       child: SafeArea(
-        minimum: EdgeInsets.symmetric(vertical: 32, horizontal: 16)
+        minimum: EdgeInsets.symmetric(vertical: 32, horizontal: 0)
             .copyWith(bottom: 8),
         child: Column(
           children: [
@@ -66,8 +66,8 @@ class _CompactLayoutState extends State<CompactLayout> {
             AnimatedContainer(
               duration: Duration(milliseconds: 600),
               curve: Curves.easeOutQuint,
-              height: onType ? 350 : 170,
-              padding: EdgeInsets.only(top: 8),
+              height: onType ? 310 : 160,
+              padding: EdgeInsets.only(top: 4),
               child: GestureDetector(
                 onTapDown: (d) {
                   setState(() {

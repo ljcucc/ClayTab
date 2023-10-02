@@ -3,12 +3,33 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
+class LinePosition {
+  final int line;
+  final int index;
+  const LinePosition({
+    required this.line,
+    required this.index,
+  });
+}
+
+class TokenInfo {
+  LinePosition? pos;
+  String code;
+
+  TokenInfo({
+    this.pos,
+    required this.code,
+  });
+
+  get disp => code;
+}
+
 class TokenBlock extends StatelessWidget {
-  final String disp;
+  final TokenInfo info;
 
   const TokenBlock({
     super.key,
-    required this.disp,
+    required this.info,
   });
 
   @override
@@ -19,21 +40,24 @@ class TokenBlock extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Theme.of(context).colorScheme.primaryContainer,
+        color: Theme.of(context).colorScheme.primaryContainer.withOpacity(.45),
       ),
       child: Text(
-        disp,
-        style: GoogleFonts.robotoMono(),
+        info.disp,
+        style: GoogleFonts.robotoMono().copyWith(fontSize: 12),
       ),
     );
   }
 }
 
 class LineWidget extends StatelessWidget {
+  final int linenumber;
   final Line line;
+
   const LineWidget({
     super.key,
     required this.line,
+    required this.linenumber,
   });
 
   @override
@@ -41,10 +65,13 @@ class LineWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Wrap(
-        spacing: 10,
+        spacing: 4,
+        runSpacing: 4,
         children: [
           ...line.map((e) {
-            return TokenBlock(disp: e);
+            return TokenBlock(
+              info: TokenInfo(code: e),
+            );
           }),
         ],
       ),
@@ -69,9 +96,11 @@ class CodeEditorWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ...lines.map((line) {
-                return LineWidget(line: line);
-              })
+              for (var i = 0; i < lines.length; i++)
+                LineWidget(
+                  line: lines[i],
+                  linenumber: i,
+                )
             ],
           ),
         ),
