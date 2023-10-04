@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:code_playground/pages/workspace/side_panel.dart';
 import 'package:code_playground/components/toolbar_item.dart';
 import 'package:code_playground/components/touchpad.dart';
@@ -5,7 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:code_playground/components/material_container.dart';
 
 class ExpandedTouchpad extends StatelessWidget {
-  const ExpandedTouchpad({super.key});
+  final BorderRadius? borderRadius;
+  const ExpandedTouchpad({
+    super.key,
+    this.borderRadius,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +22,7 @@ class ExpandedTouchpad extends StatelessWidget {
         width: 250,
         child: MaterialContainer(
           elevation: 4,
+          borderRadius: borderRadius,
           backgroundColor: Theme.of(context).colorScheme.surface,
           child: Touchpad(),
         ),
@@ -82,45 +89,6 @@ class _ToolbarRailState extends State<ToolbarRail> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class StyledExpandedLayoutContainer extends StatelessWidget {
-  final ImageProvider? backgroundImage;
-  final Widget child;
-
-  const StyledExpandedLayoutContainer({
-    super.key,
-    this.backgroundImage,
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme.primary;
-
-    return Stack(
-      children: [
-        if (backgroundImage != null)
-          Positioned.fill(
-            child: ColorFiltered(
-              colorFilter: ColorFilter.mode(color, BlendMode.hue),
-              child: Image(
-                image: backgroundImage!,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        MaterialContainer(
-          elevation: 4,
-          borderRadius: BorderRadius.zero,
-          backgroundColor: backgroundImage == null
-              ? Theme.of(context).colorScheme.surface
-              : Theme.of(context).colorScheme.surface.withOpacity(.5),
-          child: child,
-        ),
-      ],
     );
   }
 }
@@ -206,14 +174,33 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
       ),
     );
 
+    final color = Theme.of(context).colorScheme.primary;
+
     final centerWorkspace = Expanded(
       child: MaterialContainer(
-        backgroundColor: widget.backgroundImage == null
-            ? Theme.of(context).colorScheme.surface
-            : Colors.transparent,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
         elevation: 0,
-        child: widget.body,
+        child: Stack(
+          children: [
+            if (widget.backgroundImage != null)
+              Positioned.fill(
+                child: ColorFiltered(
+                  colorFilter: ColorFilter.mode(color, BlendMode.hue),
+                  child: Image(
+                    image: widget.backgroundImage!,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            Positioned.fill(
+              child: Container(
+                  color:
+                      Theme.of(context).colorScheme.surface.withOpacity(.35)),
+            ),
+            widget.body,
+          ],
+        ),
       ),
     );
 
@@ -231,8 +218,10 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
       ),
     );
 
-    return StyledExpandedLayoutContainer(
-      backgroundImage: widget.backgroundImage,
+    return MaterialContainer(
+      elevation: 4,
+      borderRadius: BorderRadius.zero,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: Stack(
         children: [
           SafeArea(
@@ -270,7 +259,11 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
                   ),
                 );
               },
-              child: padOpen ? ExpandedTouchpad() : Container(),
+              child: padOpen
+                  ? ExpandedTouchpad(
+                      // borderRadius: BorderRadius.circular(100),
+                      )
+                  : Container(),
             ),
           ),
         ],

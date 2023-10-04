@@ -42,17 +42,9 @@ class IndentBlock extends StatelessWidget {
     final color = Theme.of(context).colorScheme.primaryContainer;
 
     return Container(
-      // clipBehavior: Clip.hardEdge,
-      // decoration: BoxDecoration(
-      //   border: Border(
-      //     left: BorderSide(color: color, width: 8),
-      //   ),
-      // ),
+      clipBehavior: Clip.hardEdge,
+      decoration: BoxDecoration(color: color),
       width: 30,
-      child: Text(
-        " ",
-        style: GoogleFonts.robotoMono().copyWith(fontSize: 14),
-      ),
     );
   }
 }
@@ -73,7 +65,7 @@ class _TokenBlockState extends State<TokenBlock> {
   bool _isHovered = false;
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme.primaryContainer;
+    final color = Theme.of(context).colorScheme.surfaceVariant;
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: MouseRegion(
@@ -97,7 +89,7 @@ class _TokenBlockState extends State<TokenBlock> {
             boxShadow: [
               BoxShadow(
                 color: color,
-                offset: Offset(4, 0),
+                offset: Offset(6, 0),
                 blurRadius: 0,
               ),
             ],
