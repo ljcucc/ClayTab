@@ -1,7 +1,5 @@
-import 'package:code_playground/components/code_editor/editor.dart';
-import 'package:code_playground/pages/workspace/code_editor.dart';
-import 'package:code_playground/pages/workspace/layout/expanded.dart';
-import 'package:code_playground/pages/workspace/layout/main_layout.dart';
+import 'package:code_playground/pages/home.dart';
+import 'package:code_playground/pages/workspace/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -46,7 +44,8 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MainLayout(),
+      home: HomePage(),
+      // home: WorkspaceMainLayout(),
     );
   }
 }

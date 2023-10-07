@@ -1,10 +1,11 @@
-import 'package:code_playground/components/code_editor/editor.dart';
+import 'package:code_playground/components/code_editor/text_editor.dart';
+import 'package:code_playground/components/code_editor/block/editor.dart';
 import 'package:code_playground/pages/workspace/layout/compact.dart';
 import 'package:code_playground/pages/workspace/layout/expanded.dart';
 import 'package:flutter/material.dart';
 
-class MainLayout extends StatelessWidget {
-  const MainLayout({super.key});
+class WorkspaceMainLayout extends StatelessWidget {
+  const WorkspaceMainLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,8 @@ class MainLayout extends StatelessWidget {
     }
 
     return ExpandedLayout(
-      body: body,
+      body: CodeEditor(),
+      style: ExpandedStyle.inner(),
       // backgroundImage: NetworkImage(
       //   "https://materia.press/wp-content/uploads/2022/03/BRIAN-THOREEN-40-scaled.jpg",
       // ),

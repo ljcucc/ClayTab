@@ -6,6 +6,43 @@ import 'package:code_playground/components/touchpad.dart';
 import 'package:flutter/material.dart';
 import 'package:code_playground/components/material_container.dart';
 
+class ExpandedStyle {
+  late final bool haveBorder;
+  final double innerElevation;
+  final double outterElevation;
+
+  ExpandedStyle({
+    this.innerElevation = 0,
+    this.outterElevation = 0,
+    bool border = false,
+  }) {
+    this.haveBorder = border;
+  }
+
+  BoxBorder? border(color) => haveBorder
+      ? Border.all(
+          color: color,
+          width: 1.5,
+        )
+      : null;
+
+  factory ExpandedStyle.border() {
+    return ExpandedStyle(border: true);
+  }
+
+  factory ExpandedStyle.backgroundBorder() {
+    return ExpandedStyle(border: true, innerElevation: 4, outterElevation: 4);
+  }
+
+  factory ExpandedStyle.inner() {
+    return ExpandedStyle(innerElevation: 4);
+  }
+
+  factory ExpandedStyle.outter() {
+    return ExpandedStyle(outterElevation: 4);
+  }
+}
+
 class ExpandedTouchpad extends StatelessWidget {
   final BorderRadius? borderRadius;
   const ExpandedTouchpad({
@@ -21,7 +58,7 @@ class ExpandedTouchpad extends StatelessWidget {
         height: 300,
         width: 250,
         child: MaterialContainer(
-          elevation: 4,
+          elevation: 0,
           borderRadius: borderRadius,
           backgroundColor: Theme.of(context).colorScheme.surface,
           child: Touchpad(),
@@ -76,6 +113,9 @@ class _ToolbarRailState extends State<ToolbarRail> {
           children: [
             ToolbarItem(
               icon: Icon(Icons.grid_view),
+              onTap: () {
+                Navigator.of(context).pop();
+              },
             ),
             Expanded(
               child: Wrap(
@@ -96,11 +136,13 @@ class _ToolbarRailState extends State<ToolbarRail> {
 class ExpandedLayout extends StatefulWidget {
   final Widget body;
   final ImageProvider? backgroundImage;
+  final ExpandedStyle style;
 
   const ExpandedLayout({
     super.key,
     required this.body,
     this.backgroundImage,
+    required this.style,
   });
 
   @override
@@ -120,7 +162,7 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
       centerTitle: false,
       backgroundColor: Colors.transparent,
       toolbarHeight: 48,
-      // leading: Container(),
+      leading: Container(),
       // title: TopToolbar(),
       actions: [
         ToggleToolbarItem(
@@ -165,7 +207,7 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
         ),
       ],
       trailer: ToolbarItem(
-        icon: Icon(Icons.settings_outlined, size: 24),
+        icon: Icon(Icons.terminal, size: 24),
         onTap: () {
           setState(() {
             sideOpen = !sideOpen;
@@ -179,8 +221,11 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
     final centerWorkspace = Expanded(
       child: MaterialContainer(
         backgroundColor: Theme.of(context).colorScheme.surface,
+        surfaceTint: Theme.of(context).colorScheme.primary,
         borderRadius: BorderRadius.circular(20),
-        elevation: 0,
+        elevation: widget.style.innerElevation,
+        border: widget.style.border(
+            Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(.5)),
         child: Stack(
           children: [
             if (widget.backgroundImage != null)
@@ -195,8 +240,7 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
               ),
             Positioned.fill(
               child: Container(
-                  color:
-                      Theme.of(context).colorScheme.surface.withOpacity(.35)),
+                  color: Theme.of(context).colorScheme.surface.withOpacity(.0)),
             ),
             widget.body,
           ],
@@ -219,7 +263,7 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
     );
 
     return MaterialContainer(
-      elevation: 4,
+      elevation: widget.style.outterElevation,
       borderRadius: BorderRadius.zero,
       backgroundColor: Theme.of(context).colorScheme.surface,
       child: Stack(

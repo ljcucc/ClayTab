@@ -1,4 +1,3 @@
-import 'package:code_playground/components/code_editor/non-text/parser.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';

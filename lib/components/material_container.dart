@@ -1,12 +1,14 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:code_playground/components/material_container.dart';
 
 class MaterialContainer extends StatelessWidget {
   final double elevation;
   final Widget child;
   final BorderRadius? borderRadius;
-  Color? backgroundColor;
-  Color? surfaceTint;
+  final Color? backgroundColor;
+  final Color? surfaceTint;
+  final BoxBorder? border;
 
   MaterialContainer({
     super.key,
@@ -15,18 +17,25 @@ class MaterialContainer extends StatelessWidget {
     this.borderRadius,
     this.backgroundColor,
     this.surfaceTint,
+    this.border,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: elevation,
-      borderRadius: borderRadius ?? BorderRadius.all(Radius.circular(32)),
-      clipBehavior: Clip.hardEdge,
-      shadowColor: Colors.transparent,
-      surfaceTintColor: surfaceTint ?? Theme.of(context).colorScheme.primary,
-      color: backgroundColor ?? Colors.transparent,
-      child: child,
+    return Container(
+      decoration: BoxDecoration(
+        border: border,
+        borderRadius: borderRadius ?? BorderRadius.all(Radius.circular(32)),
+      ),
+      child: Material(
+        elevation: elevation,
+        borderRadius: borderRadius ?? BorderRadius.all(Radius.circular(32)),
+        clipBehavior: Clip.hardEdge,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: surfaceTint ?? Theme.of(context).colorScheme.primary,
+        color: backgroundColor ?? Colors.transparent,
+        child: child,
+      ),
     );
   }
 }
