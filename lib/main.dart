@@ -1,5 +1,6 @@
-import 'package:code_playground/pages/home.dart';
+import 'package:code_playground/pages/home/home.dart';
 import 'package:code_playground/pages/workspace/main_layout.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -33,19 +34,29 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
+    final brightness = Brightness.dark;
+    return DynamicColorBuilder(
+      builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+        final deviceColorScheme =
+            brightness == Brightness.dark ? darkDynamic : lightDynamic;
+
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: deviceColorScheme ??
+                ColorScheme.fromSeed(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromARGB(255, 255, 102, 0),
-          // brightness: Brightness.dark,
-        ),
-        useMaterial3: true,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: HomePage(),
-      // home: WorkspaceMainLayout(),
+                  seedColor: Color.fromARGB(255, 255, 102, 0),
+                  brightness: brightness,
+                ),
+            useMaterial3: true,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: HomePage(),
+          // home: WorkspaceMainLayout(),
+        );
+      },
     );
   }
 }

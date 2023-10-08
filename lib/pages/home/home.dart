@@ -1,20 +1,33 @@
 import 'package:code_playground/components/material_container.dart';
 import 'package:code_playground/components/toolbar_item.dart';
+import 'package:code_playground/pages/home/extensions.dart';
+import 'package:code_playground/pages/home/labs.dart';
+import 'package:code_playground/pages/home/projects.dart';
 import 'package:code_playground/pages/new_project.dart';
 import 'package:code_playground/pages/settings.dart';
 import 'package:code_playground/pages/workspace/main_layout.dart';
 import 'package:flutter/material.dart';
 
-class HomePageLayout extends StatefulWidget {
-  final String title;
+class HomePageSectionDestination {
   final Widget body;
+  final Text label;
+  final Icon icon;
   final Widget? fab;
+
+  HomePageSectionDestination({
+    required this.body,
+    required this.label,
+    required this.icon,
+    this.fab,
+  });
+}
+
+class HomePageLayout extends StatefulWidget {
+  final List<HomePageSectionDestination> destinations;
 
   const HomePageLayout({
     super.key,
-    required this.body,
-    required this.title,
-    this.fab,
+    required this.destinations,
   });
 
   @override
@@ -61,49 +74,34 @@ class _HomePageLayoutState extends State<HomePageLayout> {
                 ),
               ),
               destinations: [
-                NavigationRailDestination(
-                  icon: Icon(Icons.workspaces_outlined),
-                  label: Text("Sandboxes"),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.dashboard_customize_outlined),
-                  label: Text("Templates"),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.cloud_outlined),
-                  label: Text("Servers"),
-                ),
-                NavigationRailDestination(
-                  icon: Icon(Icons.menu_book),
-                  label: Text("Learning"),
-                ),
+                for (var item in widget.destinations)
+                  NavigationRailDestination(
+                    icon: item.icon,
+                    label: item.label,
+                  ),
               ],
               selectedIndex: selectedIndex,
               onDestinationSelected: (value) =>
                   setState(() => selectedIndex = value),
             ),
             Expanded(
-              child: SafeArea(
-                minimum: EdgeInsets.all(32),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: Text(
-                        widget.title,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ),
-                    Expanded(child: SingleChildScrollView(child: widget.body)),
-                  ],
-                ),
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 100),
+                switchOutCurve: Curves.easeInOut,
+                switchInCurve: Curves.easeInOut,
+                child: widget.destinations[selectedIndex].body,
+                transitionBuilder: (child, animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
               ),
             ),
           ],
         ),
       ),
-      floatingActionButton: widget.fab,
+      floatingActionButton: widget.destinations[selectedIndex].fab,
     );
   }
 }
@@ -114,7 +112,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fab = FloatingActionButton.extended(
-      label: Text("New Sandbox"),
+      label: Text("New Project"),
       icon: Icon(Icons.add),
       onPressed: () async {
         // await Navigator.of(context).push(
@@ -138,9 +136,24 @@ class HomePage extends StatelessWidget {
     );
 
     return HomePageLayout(
-      title: "Recently",
-      body: Placeholder(),
-      fab: fab,
+      destinations: [
+        HomePageSectionDestination(
+          body: ProjectPage(),
+          icon: Icon(Icons.grid_view),
+          label: Text("Projects"),
+          fab: fab,
+        ),
+        HomePageSectionDestination(
+          body: ExtensionsPage(),
+          icon: Icon(Icons.extension_outlined),
+          label: Text("Extensions"),
+        ),
+        HomePageSectionDestination(
+          body: LabsPage(),
+          icon: Icon(Icons.science_outlined),
+          label: Text("Labs"),
+        ),
+      ],
     );
   }
 }

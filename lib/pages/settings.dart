@@ -13,8 +13,12 @@ class SettingsPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: Icon(Icons.arrow_back),
+          ),
           centerTitle: false,
-          title: Text("Settings"),
+          title: Text("App Settings"),
           backgroundColor: Colors.transparent,
         ),
       ),
