@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = Brightness.dark;
+    final brightness = MediaQuery.of(context).platformBrightness;
     return DynamicColorBuilder(
       builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
         final deviceColorScheme =
@@ -46,7 +46,6 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeData(
             colorScheme: deviceColorScheme ??
                 ColorScheme.fromSeed(
-        colorScheme: ColorScheme.fromSeed(
                   seedColor: Color.fromARGB(255, 255, 102, 0),
                   brightness: brightness,
                 ),
