@@ -7,7 +7,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialContainer(
-      elevation: 4,
+      elevation: 2,
       borderRadius: BorderRadius.zero,
       backgroundColor: Theme.of(context).colorScheme.surface,
       child: Scaffold(

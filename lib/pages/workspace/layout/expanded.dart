@@ -5,6 +5,7 @@ import 'package:code_playground/components/toolbar_item.dart';
 import 'package:code_playground/components/touchpad.dart';
 import 'package:flutter/material.dart';
 import 'package:code_playground/components/material_container.dart';
+import 'dart:math' as math; // import this
 
 class ExpandedStyle {
   late final bool haveBorder;
@@ -31,15 +32,15 @@ class ExpandedStyle {
   }
 
   factory ExpandedStyle.backgroundBorder() {
-    return ExpandedStyle(border: true, innerElevation: 4, outterElevation: 4);
+    return ExpandedStyle(border: true, innerElevation: 2, outterElevation: 2);
   }
 
   factory ExpandedStyle.inner() {
-    return ExpandedStyle(innerElevation: 4);
+    return ExpandedStyle(innerElevation: 2);
   }
 
   factory ExpandedStyle.outter() {
-    return ExpandedStyle(outterElevation: 4);
+    return ExpandedStyle(outterElevation: 2);
   }
 }
 
@@ -57,11 +58,18 @@ class ExpandedTouchpad extends StatelessWidget {
       child: Container(
         height: 300,
         width: 250,
-        child: MaterialContainer(
-          elevation: 0,
-          borderRadius: borderRadius,
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          child: Touchpad(),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(32),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+            child: MaterialContainer(
+              elevation: 6,
+              borderRadius: borderRadius,
+              // backgroundColor: Theme.of(context).colorScheme.surface,
+              backgroundColor: Colors.transparent,
+              child: Touchpad(),
+            ),
+          ),
         ),
       ),
     );
@@ -89,11 +97,13 @@ class TopToolbar extends StatelessWidget {
 class ToolbarRail extends StatefulWidget {
   final List<Widget> center;
   final Widget trailer;
+  final Widget leading;
 
   const ToolbarRail({
     super.key,
     required this.center,
     required this.trailer,
+    required this.leading,
   });
 
   @override
@@ -111,12 +121,7 @@ class _ToolbarRailState extends State<ToolbarRail> {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
           children: [
-            ToolbarItem(
-              icon: Icon(Icons.grid_view),
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-            ),
+            widget.leading,
             Expanded(
               child: Wrap(
                 alignment: WrapAlignment.center,
@@ -195,6 +200,16 @@ class _ExpandedLayoutState extends State<ExpandedLayout> {
     );
 
     final toolbarRail = ToolbarRail(
+      leading: Transform(
+        alignment: Alignment.center,
+        transform: Matrix4.rotationY(math.pi),
+        child: ToolbarItem(
+          icon: Icon(Icons.logout),
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       center: [
         ToolbarItem(
           icon: Icon(Icons.folder_open, size: 24),

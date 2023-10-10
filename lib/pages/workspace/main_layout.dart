@@ -41,9 +41,17 @@ class WorkspaceMainLayout extends StatelessWidget {
       );
     }
 
+    // TODO: Write ExpandedStyle into a provider widget
+
+    var defaultStyle =
+        MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? ExpandedStyle.inner()
+            : ExpandedStyle.outter();
+
     return ExpandedLayout(
       body: CodeEditor(),
-      style: ExpandedStyle.inner(),
+      // style: ExpandedStyle.border(),
+      style: defaultStyle,
       // backgroundImage: NetworkImage(
       //   "https://materia.press/wp-content/uploads/2022/03/BRIAN-THOREEN-40-scaled.jpg",
       // ),

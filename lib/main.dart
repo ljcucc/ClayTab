@@ -24,17 +24,28 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+  }
 
-    // set status bar color
+  @override
+  void didUpdateWidget(covariant MyApp oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    final statusbarBrightness =
+        MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? Brightness.light
+            : Brightness.dark;
+    print(statusbarBrightness);
+    print("hello");
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: statusbarBrightness,
     ));
   }
 
   @override
   Widget build(BuildContext context) {
     final brightness = MediaQuery.of(context).platformBrightness;
+
     return DynamicColorBuilder(
       builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
         final deviceColorScheme =

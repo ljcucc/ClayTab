@@ -50,7 +50,7 @@ class _HomePageLayoutState extends State<HomePageLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MaterialContainer(
-        elevation: 4,
+        elevation: 2,
         borderRadius: BorderRadius.zero,
         backgroundColor: Theme.of(context).colorScheme.surface,
         child: Row(

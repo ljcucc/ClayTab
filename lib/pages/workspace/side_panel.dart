@@ -26,7 +26,7 @@ class SideDrawer extends StatelessWidget {
         child: MaterialContainer(
           borderRadius: BorderRadius.circular(24),
           elevation: 0,
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          // backgroundColor: Theme.of(context).colorScheme.surface,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SizedBox(
