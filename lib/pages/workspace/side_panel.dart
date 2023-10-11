@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:code_playground/components/material_container.dart';
+import 'package:code_playground/widgets/material_container.dart';
 
 class SideDrawer extends StatelessWidget {
   final bool open;

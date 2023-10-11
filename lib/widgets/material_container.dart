@@ -9,6 +9,7 @@ class MaterialContainer extends StatelessWidget {
   final Color? backgroundColor;
   final Color? surfaceTint;
   final BoxBorder? border;
+  final Clip clipBehavior;
 
   MaterialContainer({
     super.key,
@@ -18,6 +19,7 @@ class MaterialContainer extends StatelessWidget {
     this.backgroundColor,
     this.surfaceTint,
     this.border,
+    this.clipBehavior = Clip.hardEdge,
   });
 
   @override
@@ -30,7 +32,7 @@ class MaterialContainer extends StatelessWidget {
       child: Material(
         elevation: elevation,
         borderRadius: borderRadius ?? BorderRadius.all(Radius.circular(32)),
-        clipBehavior: Clip.hardEdge,
+        clipBehavior: this.clipBehavior,
         shadowColor: Colors.transparent,
         surfaceTintColor: surfaceTint ?? Theme.of(context).colorScheme.primary,
         color: backgroundColor ?? Colors.transparent,

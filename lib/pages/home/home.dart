@@ -1,11 +1,11 @@
-import 'package:code_playground/components/material_container.dart';
-import 'package:code_playground/components/toolbar_item.dart';
-import 'package:code_playground/pages/home/extensions.dart';
-import 'package:code_playground/pages/home/labs.dart';
-import 'package:code_playground/pages/home/projects.dart';
+import 'package:code_playground/widgets/material_container.dart';
+import 'package:code_playground/widgets/toolbar_item.dart';
+import 'package:code_playground/pages/extensions/extensions.dart';
+import 'package:code_playground/pages/labs/labs.dart';
+import 'package:code_playground/pages/projects_section/projects_section.dart';
 import 'package:code_playground/pages/new_project.dart';
 import 'package:code_playground/pages/settings.dart';
-import 'package:code_playground/pages/workspace/main_layout.dart';
+import 'package:code_playground/pages/workspace/workspace.dart';
 import 'package:flutter/material.dart';
 
 class HomePageSectionDestination {
@@ -24,10 +24,12 @@ class HomePageSectionDestination {
 
 class HomePageLayout extends StatefulWidget {
   final List<HomePageSectionDestination> destinations;
+  final Widget? leading;
 
   const HomePageLayout({
     super.key,
     required this.destinations,
+    this.leading,
   });
 
   @override
@@ -56,10 +58,11 @@ class _HomePageLayoutState extends State<HomePageLayout> {
         child: Row(
           children: [
             NavigationRail(
+              backgroundColor: Colors.transparent,
               labelType: NavigationRailLabelType.selected,
               leading: SafeArea(
                 minimum: EdgeInsets.symmetric(vertical: 8),
-                child: Column(children: []),
+                child: widget.leading ?? Container(),
               ),
               trailing: Expanded(
                 child: SafeArea(
@@ -111,9 +114,11 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fab = FloatingActionButton.extended(
-      label: Text("New Project"),
-      icon: Icon(Icons.add),
+    final fab = FloatingActionButton(
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+      elevation: 0,
+      child: Icon(Icons.add),
       onPressed: () async {
         // await Navigator.of(context).push(
         //   MaterialPageRoute(
@@ -136,12 +141,24 @@ class HomePage extends StatelessWidget {
     );
 
     return HomePageLayout(
+      leading: Padding(
+        padding: const EdgeInsets.only(bottom: 24.0),
+        child: Column(
+          children: [
+            // ToolbarItem(
+            //   icon: Icon(Icons.menu),
+            //   onTap: () {},
+            // ),
+            SizedBox(height: 24),
+            fab,
+          ],
+        ),
+      ),
       destinations: [
         HomePageSectionDestination(
-          body: ProjectPage(),
+          body: ProjectsSection(),
           icon: Icon(Icons.grid_view),
           label: Text("Projects"),
-          fab: fab,
         ),
         HomePageSectionDestination(
           body: ExtensionsPage(),

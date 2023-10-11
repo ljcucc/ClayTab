@@ -1,4 +1,4 @@
-import 'package:code_playground/components/material_container.dart';
+import 'package:code_playground/widgets/material_container.dart';
 import 'package:flutter/material.dart';
 
 class NewProjectPage extends StatelessWidget {

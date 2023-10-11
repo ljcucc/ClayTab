@@ -1,5 +1,5 @@
-import 'package:code_playground/components/material_container.dart';
-import 'package:code_playground/components/touchpad.dart';
+import 'package:code_playground/widgets/material_container.dart';
+import 'package:code_playground/widgets/touchpad.dart';
 import 'package:flutter/material.dart';
 
 class CompactTouchpad extends StatelessWidget {
@@ -58,13 +58,14 @@ class _CompactLayoutState extends State<CompactLayout> {
                 },
                 child: MaterialContainer(
                   elevation: 0,
+                  borderRadius: BorderRadius.circular(24),
                   backgroundColor: Theme.of(context).colorScheme.surface,
                   child: widget.body,
                 ),
               ),
             ),
             AnimatedContainer(
-              duration: Duration(milliseconds: 600),
+              duration: Duration(milliseconds: 500),
               curve: Curves.easeOutQuint,
               height: onType ? 310 : 160,
               padding: EdgeInsets.only(top: 4),

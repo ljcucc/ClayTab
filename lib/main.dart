@@ -1,5 +1,5 @@
 import 'package:code_playground/pages/home/home.dart';
-import 'package:code_playground/pages/workspace/main_layout.dart';
+import 'package:code_playground/pages/workspace/workspace.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

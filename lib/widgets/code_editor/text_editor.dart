@@ -24,7 +24,8 @@ class _CodeEditorState extends State<CodeEditor> {
   @override
   void initState() {
     super.initState();
-    final source = """""";
+    final source = """
+""";
     // Instantiate the CodeController
     _codeController = CodeController(
       text: source,
@@ -73,6 +74,7 @@ class _CodeEditorState extends State<CodeEditor> {
           child: CodeField(
             controller: _codeController!,
             textStyle: GoogleFonts.robotoMono().copyWith(fontSize: 14),
+            smartQuotesType: SmartQuotesType.enabled,
           ),
         ),
       ),

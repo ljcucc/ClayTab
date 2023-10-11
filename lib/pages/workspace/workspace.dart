@@ -1,5 +1,5 @@
-import 'package:code_playground/components/code_editor/text_editor.dart';
-import 'package:code_playground/components/code_editor/block/editor.dart';
+import 'package:code_playground/widgets/code_editor/text_editor.dart';
+import 'package:code_playground/widgets/code_editor/block/editor.dart';
 import 'package:code_playground/pages/workspace/layout/compact.dart';
 import 'package:code_playground/pages/workspace/layout/expanded.dart';
 import 'package:flutter/material.dart';

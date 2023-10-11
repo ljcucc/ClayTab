@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:code_playground/pages/workspace/side_panel.dart';
-import 'package:code_playground/components/toolbar_item.dart';
-import 'package:code_playground/components/touchpad.dart';
+import 'package:code_playground/widgets/toolbar_item.dart';
+import 'package:code_playground/widgets/touchpad.dart';
 import 'package:flutter/material.dart';
-import 'package:code_playground/components/material_container.dart';
+import 'package:code_playground/widgets/material_container.dart';
 import 'dart:math' as math; // import this
 
 class ExpandedStyle {
