@@ -70,14 +70,22 @@ class ProjectPreviewShape extends StatelessWidget {
         );
         break;
       case ProjectPreviewShapes.Drop:
-      // TODO: Handle this case.
+        decoration = BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(100).copyWith(
+            topLeft: Radius.circular(32),
+          ),
+        );
       case ProjectPreviewShapes.Rect:
         break;
     }
 
-    return Container(
-      decoration: decoration,
-      child: child,
+    return AspectRatio(
+      aspectRatio: 1,
+      child: Container(
+        decoration: decoration,
+        child: child,
+      ),
     );
   }
 }
@@ -108,7 +116,7 @@ class ProjectPreview extends StatelessWidget {
             width: 80,
             child: ProjectPreviewShape(
               shape: preview.shape ?? ProjectPreviewShapes.Clover,
-              color: colors.primary,
+              color: colors.primary.withOpacity(.75),
               child: Icon(preview.icon, size: 32, color: colors.onPrimary),
             ),
           ),

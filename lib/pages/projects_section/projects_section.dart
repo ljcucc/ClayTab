@@ -29,15 +29,16 @@ class ProjectsSectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      minimum: EdgeInsets.all(24).copyWith(bottom: 0, top: 32),
+    return Padding(
+      padding: EdgeInsets.all(24).copyWith(bottom: 0, top: 32),
+      // minimum: EdgeInsets.all(24).copyWith(bottom: 0, top: 32),
       child: SizedBox.expand(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding:
-                  EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 24),
+                  EdgeInsets.symmetric(horizontal: 32).copyWith(bottom: 24),
               child: Text(
                 "Projects",
                 style: Theme.of(context).textTheme.titleLarge,
@@ -47,7 +48,9 @@ class ProjectsSectionView extends StatelessWidget {
               child: MaterialContainer(
                 elevation: 0,
                 borderRadius: BorderRadius.circular(24).copyWith(
-                    bottomLeft: Radius.zero, bottomRight: Radius.zero),
+                  bottomLeft: Radius.zero,
+                  bottomRight: Radius.zero,
+                ),
                 backgroundColor: Theme.of(context).colorScheme.surface,
                 child: child,
               ),

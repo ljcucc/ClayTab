@@ -10,39 +10,39 @@ class ProjectsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.extent(
-      padding: EdgeInsets.all(24),
-      mainAxisSpacing: 16,
-      crossAxisSpacing: 16,
-      maxCrossAxisExtent: 500,
-      childAspectRatio: 3 / 1,
-      children: [
-        for (var i = 0; i < 8; i++)
-          ProjectTile(
-            name: "Project ${i + 1}",
-            preview: ProjectPreviewData(
-              icon: IconData(0xe000 + math.Random().nextInt(0x0fff),
-                  fontFamily: 'MaterialIcons'),
-              shape: ProjectPreviewShapes.values[math.Random().nextInt(5)],
-              color: math.Random().nextBool()
-                  ? null
-                  : Color.fromARGB(
-                      255,
-                      math.Random().nextInt(255),
-                      math.Random().nextInt(255),
-                      math.Random().nextInt(255),
-                    ).harmonizeWith(Theme.of(context).colorScheme.primary),
-              // color: Theme.of(context).colorScheme.primary.harmonizeWith(
-              //       Color.fromARGB(
-              //         255,
-              //         math.Random().nextInt(255),
-              //         math.Random().nextInt(255),
-              //         math.Random().nextInt(255),
-              //       ),
-              //     ),
-            ),
+    return SizedBox.expand(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(24),
+          child: Wrap(
+            runSpacing: 16,
+            spacing: 16,
+            children: [
+              ProjectTile(
+                name: "CodeSandbox",
+                preview: ProjectPreviewData(
+                  shape: ProjectPreviewShapes.Scallop,
+                  icon: Icons.code,
+                ),
+              ),
+              ProjectTile(
+                name: "Hello World",
+                preview: ProjectPreviewData(
+                  shape: ProjectPreviewShapes.Rect,
+                  icon: Icons.waving_hand_outlined,
+                ),
+              ),
+              ProjectTile(
+                name: "New Project",
+                preview: ProjectPreviewData(
+                  shape: ProjectPreviewShapes.Clover,
+                  icon: Icons.android,
+                ),
+              ),
+            ],
           ),
-      ],
+        ),
+      ),
     );
   }
 }

@@ -23,44 +23,48 @@ class ProjectTile extends StatelessWidget {
           )
         : Theme.of(context).colorScheme;
 
-    return Card(
-      color: tileColorScheme.primaryContainer,
-      shadowColor: Colors.transparent,
-      clipBehavior: Clip.hardEdge,
-      shape: RoundedRectangleBorder(
-        // side: BorderSide(color: tileColorScheme.outlineVariant),
-        borderRadius: BorderRadius.circular(32),
-      ),
-      child: InkWell(
-        onTap: () {},
-        child: Row(
-          children: [
-            AspectRatio(
-              aspectRatio: 1,
-              child: Padding(
-                padding: const EdgeInsets.all(0),
-                child: Container(
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: ProjectPreview(
-                    colorScheme: tileColorScheme,
-                    preview: preview,
+    return SizedBox(
+      width: 200,
+      height: MediaQuery.of(context).size.width > 600 ? 200 : null,
+      child: Card(
+        // color: tileColorScheme.primaryContainer,
+        elevation: 0,
+        shadowColor: Colors.transparent,
+        clipBehavior: Clip.hardEdge,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: InkWell(
+          onTap: () {},
+          child: Column(
+            children: [
+              if (MediaQuery.of(context).size.width > 600)
+                Expanded(
+                  child: Container(
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: ProjectPreview(
+                      colorScheme: tileColorScheme,
+                      preview: preview,
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Expanded(
-                child: ListTile(
-              contentPadding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-              title: Text(
-                name,
-                style: TextStyle(color: tileColorScheme.onSurface),
-              ),
-              subtitle: Text("Sunday"),
-            ))
-          ],
+              ListTile(
+                leading: Icon(
+                  Icons.folder_open,
+                  size: 20,
+                ),
+                title: Text(
+                  name,
+                  style: TextStyle(color: tileColorScheme.onSurface),
+                ),
+                // subtitle: Text("Sunday"),
+              )
+            ],
+          ),
         ),
       ),
     );
