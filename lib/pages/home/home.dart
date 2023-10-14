@@ -3,7 +3,7 @@ import 'package:code_playground/widgets/toolbar_item.dart';
 import 'package:code_playground/pages/extensions/extensions.dart';
 import 'package:code_playground/pages/labs/labs.dart';
 import 'package:code_playground/pages/projects_section/projects_section.dart';
-import 'package:code_playground/pages/new_project.dart';
+import 'package:code_playground/pages/new_project/new_project.dart';
 import 'package:code_playground/pages/settings.dart';
 import 'package:code_playground/pages/workspace/workspace.dart';
 import 'package:flutter/material.dart';
@@ -120,23 +120,23 @@ class HomePage extends StatelessWidget {
       elevation: 0,
       child: Icon(Icons.add),
       onPressed: () async {
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            // fullscreenDialog: true,
+            builder: (context) {
+              return NewProjectPage();
+            },
+          ),
+        );
+
         // await Navigator.of(context).push(
         //   MaterialPageRoute(
         //     fullscreenDialog: true,
         //     builder: (context) {
-        //       return NewProjectPage();
+        //       return WorkspaceMainLayout();
         //     },
         //   ),
         // );
-
-        await Navigator.of(context).push(
-          MaterialPageRoute(
-            fullscreenDialog: true,
-            builder: (context) {
-              return WorkspaceMainLayout();
-            },
-          ),
-        );
       },
     );
 
