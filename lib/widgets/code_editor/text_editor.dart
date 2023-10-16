@@ -56,10 +56,11 @@ class _CodeEditorState extends State<CodeEditor> {
                 var backgroundColor = value.backgroundColor;
 
                 if (value.color != null) {
-                  color = color!.harmonizeWith(colorScheme.primary);
+                  color = colorScheme.primary.harmonizeWith(color!);
                 }
                 if (key == "root") {
                   backgroundColor = Colors.transparent;
+                  color = colorScheme.onPrimaryContainer;
                 }
                 return MapEntry(
                   key,
