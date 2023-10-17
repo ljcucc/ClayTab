@@ -1,4 +1,4 @@
-import 'package:code_playground/pages/projects_section/projects_list.dart';
+import 'package:code_playground/pages/projects/projects_list.dart';
 import 'package:code_playground/widgets/material_container.dart';
 import 'package:flutter/material.dart';
 

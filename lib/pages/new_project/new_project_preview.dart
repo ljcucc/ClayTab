@@ -1,4 +1,4 @@
-import 'package:code_playground/pages/projects_section/project_preivew.dart';
+import 'package:code_playground/pages/projects/project_preivew.dart';
 import 'package:flutter/material.dart';
 
 class NewProjectPreview extends StatelessWidget {

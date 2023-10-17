@@ -9,7 +9,7 @@ import 'package:code_playground/widgets/toolbar_item.dart';
 // sections page
 import 'package:code_playground/pages/extensions/extensions.dart';
 import 'package:code_playground/pages/labs/labs.dart';
-import 'package:code_playground/pages/projects_section/projects_section.dart';
+import 'package:code_playground/pages/projects/projects.dart';
 
 class HomePageView extends StatelessWidget {
   final HomePageState controller;
