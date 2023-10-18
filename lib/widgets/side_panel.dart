@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:code_playground/widgets/material_container.dart';
 
-class SideDrawer extends StatelessWidget {
+class SidePanel extends StatelessWidget {
   final bool open;
   final Widget child;
+  final double? width;
 
-  const SideDrawer({
+  const SidePanel({
     super.key,
     required this.open,
     required this.child,
+    this.width,
   });
 
   @override
   Widget build(BuildContext context) {
-    final double width = open ? 316 : 0;
+    final double width = open ? (this.width ?? 316) : 0;
     return AnimatedContainer(
       curve: Curves.easeOutQuint,
       width: width,

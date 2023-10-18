@@ -1,7 +1,8 @@
+import 'package:code_playground/pages/expanded_workspace/expanded_style.dart';
 import 'package:code_playground/widgets/code_editor/text_editor.dart';
 import 'package:code_playground/widgets/code_editor/block/editor.dart';
 import 'package:code_playground/pages/workspace/layout/compact.dart';
-import 'package:code_playground/pages/workspace/layout/expanded.dart';
+import 'package:code_playground/pages/expanded_workspace/expanded_workspace.dart';
 import 'package:flutter/material.dart';
 
 class WorkspaceMainLayout extends StatelessWidget {
@@ -11,28 +12,7 @@ class WorkspaceMainLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final body = CodeEditorWidget(
-      lines: [
-        LineInfo(indent: 0, list: [
-          TokenInfo(code: "function"),
-          TokenInfo(code: "main"),
-          TokenInfo(code: "("),
-          TokenInfo(code: "args"),
-          TokenInfo(code: ")"),
-          TokenInfo(code: "{"),
-        ]),
-        LineInfo(indent: 1, list: [
-          TokenInfo(code: "console"),
-          TokenInfo(code: "."),
-          TokenInfo(code: "log"),
-          TokenInfo(code: "("),
-          TokenInfo(code: "\"hello world\""),
-          TokenInfo(code: ")"),
-          TokenInfo(code: ";"),
-        ]),
-        LineInfo(indent: 0, list: [
-          TokenInfo(code: "}"),
-        ]),
-      ],
+      lines: [],
     );
 
     if (width < 600) {
@@ -43,18 +23,11 @@ class WorkspaceMainLayout extends StatelessWidget {
 
     // TODO: Write ExpandedStyle into a provider widget
 
-    var defaultStyle =
-        MediaQuery.of(context).platformBrightness == Brightness.dark
-            ? ExpandedStyle.inner()
-            : ExpandedStyle.outter();
-
-    return ExpandedLayout(
-      body: CodeEditor(),
-      // style: ExpandedStyle.border(),
-      style: defaultStyle,
-      // backgroundImage: NetworkImage(
-      //   "https://materia.press/wp-content/uploads/2022/03/BRIAN-THOREEN-40-scaled.jpg",
-      // ),
+    // backgroundImage: NetworkImage(
+    //   "https://materia.press/wp-content/uploads/2022/03/BRIAN-THOREEN-40-scaled.jpg",
+    // ),
     );
+
+    return ExpandedWorkspace();
   }
 }
