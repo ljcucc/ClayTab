@@ -1,6 +1,12 @@
-import 'package:code_playground/pages/projects/projects_list.dart';
-import 'package:code_playground/widgets/material_container.dart';
+import 'package:code_playground/utils/project/project_provider.dart';
 import 'package:flutter/material.dart';
+import "package:path_provider/path_provider.dart";
+
+import 'package:code_playground/pages/projects/projects_layout.dart';
+import 'package:code_playground/pages/projects/projects_list.dart';
+import 'package:code_playground/utils/project/project_list.dart';
+import 'package:code_playground/utils/project/project.dart';
+import 'package:provider/provider.dart';
 
 // StatfulWidget Wrapper
 class ProjectsSection extends StatefulWidget {
@@ -11,53 +17,26 @@ class ProjectsSection extends StatefulWidget {
 }
 
 class _ProjectsSectionState extends State<ProjectsSection> {
+  List<ProjectData> projects = [];
+
   @override
-  Widget build(BuildContext context) {
-    return ProjectsSectionView(
-      child: ProjectsList(),
-    );
+  void initState() {
+    super.initState();
   }
-}
-
-// Stateless View Widget
-class ProjectsSectionView extends StatelessWidget {
-  final Widget child;
-  const ProjectsSectionView({
-    super.key,
-    required this.child,
-  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(24).copyWith(bottom: 0, top: 32),
-      // minimum: EdgeInsets.all(24).copyWith(bottom: 0, top: 32),
-      child: SizedBox.expand(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: 32).copyWith(bottom: 24),
-              child: Text(
-                "Projects",
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+    return Consumer<ProjectsProvider>(
+      builder: (context, value, child) {
+        return ProjectsPageLayout(
+          child: AnimatedSwitcher(
+            duration: Duration(milliseconds: 350),
+            child: ProjectsList(
+              projects: value.projects,
             ),
-            Expanded(
-              child: MaterialContainer(
-                elevation: 0,
-                borderRadius: BorderRadius.circular(24).copyWith(
-                  bottomLeft: Radius.zero,
-                  bottomRight: Radius.zero,
-                ),
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                child: child,
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

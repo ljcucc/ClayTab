@@ -43,11 +43,12 @@ class EnvironmentOptionView extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             borderRadius: BorderRadius.circular(16),
-            child: Container(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 150),
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                 color: surface,
-                border: Border.all(width: selected ? 2 : 1, color: color),
+                border: Border.all(width: 1.5, color: color),
                 borderRadius: BorderRadius.circular(16),
               ),
               padding: EdgeInsets.all(16),
@@ -103,7 +104,7 @@ class EnvironmentSelector extends StatelessWidget {
             style: Theme.of(context).textTheme.titleMedium,
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 8.0, bottom: 32),
+            padding: const EdgeInsets.only(top: 32, bottom: 32),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(

@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:code_playground/pages/projects/project_preivew.dart';
+import 'package:code_playground/pages/workspace/workspace.dart';
+import 'package:code_playground/widgets/shaped_icon.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
 class ProjectTile extends StatelessWidget {
-  final ProjectPreviewData preview;
+  final ShapedIconData preview;
   final String name;
 
   const ProjectTile({
@@ -36,7 +38,11 @@ class ProjectTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
         ),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => WorkspaceMainLayout(),
+            ));
+          },
           child: Column(
             children: [
               if (MediaQuery.of(context).size.width > 600)

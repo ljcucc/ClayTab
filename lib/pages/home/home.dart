@@ -1,3 +1,4 @@
+import 'package:code_playground/utils/project/project_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:code_playground/pages/home/home_view.dart';
@@ -5,6 +6,8 @@ import 'package:code_playground/pages/home/home_view.dart';
 import 'package:code_playground/pages/new_project/new_project.dart';
 import 'package:code_playground/pages/settings.dart';
 import 'package:code_playground/pages/workspace/workspace.dart';
+import 'package:provider/provider.dart';
+import 'package:path_provider/path_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +17,18 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  final ProjectsProvider _projectsProvider = ProjectsProvider();
+
+  @override
+  void initState() {
+    super.initState();
+    initProjectProvider();
+  }
+
+  initProjectProvider() async {
+    _projectsProvider.init(await getApplicationDocumentsDirectory());
+  }
+
   onNewProject() async {
     await Navigator.of(context).push(
       MaterialPageRoute(
@@ -24,14 +39,7 @@ class HomePageState extends State<HomePage> {
       ),
     );
 
-    await Navigator.of(context).push(
-      MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (context) {
-          return const WorkspaceMainLayout();
-        },
-      ),
-    );
+    await _projectsProvider.update();
   }
 
   openSettings() async {
@@ -45,6 +53,11 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return HomePageView(controller: this);
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: _projectsProvider),
+      ],
+      child: HomePageView(controller: this),
+    );
   }
 }

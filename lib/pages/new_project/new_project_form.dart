@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ProjectFormField extends StatelessWidget {
   final String title;
   final String? hint;
+  final Function(String value) onChange;
 
   const ProjectFormField({
     super.key,
     required this.title,
     this.hint,
+    required this.onChange,
   });
 
   @override
@@ -19,9 +21,11 @@ class ProjectFormField extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: 300),
           child: TextFormField(
             decoration: InputDecoration(
-                hintText: hint,
-                label: Text(title),
-                floatingLabelBehavior: FloatingLabelBehavior.always),
+              hintText: hint,
+              label: Text(title),
+              // floatingLabelBehavior: FloatingLabelBehavior.always,
+            ),
+            onChanged: onChange,
           ),
         ),
       ],
@@ -30,7 +34,11 @@ class ProjectFormField extends StatelessWidget {
 }
 
 class NewProjectForm extends StatelessWidget {
-  const NewProjectForm({super.key});
+  final Function(String name) onNameChanged;
+  const NewProjectForm({
+    super.key,
+    required this.onNameChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +53,14 @@ class NewProjectForm extends StatelessWidget {
               "Project",
               style: Theme.of(context).textTheme.titleMedium,
             ),
+            SizedBox(height: 32),
             Wrap(
               spacing: 24,
               runSpacing: 24,
               children: [
-                ProjectFormField(title: "Name"),
                 ProjectFormField(
-                  title: "Folder",
+                  title: "Name",
+                  onChange: onNameChanged,
                 ),
               ],
             ),

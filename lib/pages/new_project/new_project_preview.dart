@@ -1,27 +1,54 @@
-import 'package:code_playground/pages/projects/project_preivew.dart';
+import 'package:code_playground/widgets/shaped_icon.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
+
+import 'package:code_playground/widgets/mouse_region_builder.dart';
 
 class NewProjectPreview extends StatelessWidget {
-  const NewProjectPreview({super.key});
+  final ShapeTypes shape;
+  const NewProjectPreview({
+    super.key,
+    required this.shape,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    final duration = Duration(milliseconds: 150);
+    final curve = Curves.easeInOut;
+
+    final shape = ShapedIcon(
+      color: Theme.of(context).colorScheme.primary,
+      child: Icon(
+        Icons.android,
+        size: 48,
+        color: Theme.of(context).colorScheme.onPrimary,
+      ),
+      shape: this.shape,
+    );
+
+    final event = MouseRegionBuilder(builder: (context, enter, hover, exit) {
+      return AnimatedRotation(
+        turns: hover != null ? 0.02 : 0,
+        duration: duration,
+        child: AnimatedScale(
+          curve: curve,
+          duration: duration,
+          scale: hover != null ? 1.02 : 1,
+          child: shape,
+        ),
+      );
+    });
+
+    final preview = SizedBox(
       width: 300,
       child: Center(
         child: SizedBox(
           width: 150,
-          child: ProjectPreviewShape(
-            color: Theme.of(context).colorScheme.primary,
-            child: Icon(
-              Icons.android,
-              size: 48,
-              color: Theme.of(context).colorScheme.onPrimary,
-            ),
-            shape: ProjectPreviewShapes.Scallop,
-          ),
+          child: event,
         ),
       ),
     );
+
+    return preview;
   }
 }
