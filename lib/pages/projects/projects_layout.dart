@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:code_playground/widgets/material_container.dart';
 
 class ProjectsPageLayout extends StatelessWidget {
   final Widget child;
+  final Widget header;
+
   const ProjectsPageLayout({
     super.key,
     required this.child,
+    required this.header,
   });
 
   @override
@@ -15,36 +17,22 @@ class ProjectsPageLayout extends StatelessWidget {
       children: [
         // SafeArea on top of the screen
         SafeArea(
-          minimum: const EdgeInsets.only(top: 32),
+          minimum: const EdgeInsets.only(top: 24),
           child: Container(),
         ),
         Expanded(
-          child: Padding(
-            padding: EdgeInsets.all(24).copyWith(bottom: 0, top: 0),
-            child: SizedBox.expand(
-              child: MaterialContainer(
-                elevation: 0,
-                borderRadius: BorderRadius.circular(24).copyWith(
-                  bottomLeft: Radius.zero,
-                  bottomRight: Radius.zero,
-                ),
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                              vertical: 24, horizontal: 32)
+          child: SizedBox.expand(
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 32)
                           .copyWith(bottom: 0),
-                      child: Text(
-                        "Projects",
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                    Expanded(child: child),
-                  ],
+                  child: header,
                 ),
-              ),
+                SizedBox(height: 24),
+                Expanded(child: child),
+              ],
             ),
           ),
         ),

@@ -1,10 +1,8 @@
-import 'dart:math';
-
 import 'package:code_playground/pages/projects/project_preivew.dart';
 import 'package:code_playground/pages/workspace/workspace.dart';
 import 'package:code_playground/widgets/shaped_icon.dart';
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ProjectTile extends StatelessWidget {
   final ShapedIconData preview;
@@ -26,7 +24,7 @@ class ProjectTile extends StatelessWidget {
         : Theme.of(context).colorScheme;
 
     return SizedBox(
-      width: 200,
+      width: MediaQuery.of(context).size.width > 600 ? 200 : double.infinity,
       height: MediaQuery.of(context).size.width > 600 ? 200 : null,
       child: Card(
         // color: tileColorScheme.primaryContainer,
@@ -40,6 +38,7 @@ class ProjectTile extends StatelessWidget {
         child: InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
+              fullscreenDialog: true,
               builder: (context) => WorkspaceMainLayout(),
             ));
           },
@@ -59,6 +58,8 @@ class ProjectTile extends StatelessWidget {
                   ),
                 ),
               ListTile(
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 16).copyWith(right: 8),
                 leading: Icon(
                   Icons.folder_open,
                   size: 20,
@@ -66,6 +67,28 @@ class ProjectTile extends StatelessWidget {
                 title: Text(
                   name,
                   style: TextStyle(color: tileColorScheme.onSurface),
+                  maxLines: 1,
+                ),
+                subtitle: Text(
+                  DateFormat("MMM dd, yyyy").format(DateTime.now()),
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onPrimaryContainer
+                            .withOpacity(.5),
+                      ),
+                  maxLines: 1,
+                ),
+                trailing: IconButton(
+                  iconSize: 20,
+                  icon: Icon(
+                    Icons.more_vert,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(.65),
+                  ),
+                  onPressed: () {},
                 ),
                 // subtitle: Text("Sunday"),
               )

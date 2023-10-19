@@ -1,10 +1,8 @@
 import 'package:code_playground/utils/project/project_provider.dart';
 import 'package:flutter/material.dart';
-import "package:path_provider/path_provider.dart";
 
 import 'package:code_playground/pages/projects/projects_layout.dart';
 import 'package:code_playground/pages/projects/projects_list.dart';
-import 'package:code_playground/utils/project/project_list.dart';
 import 'package:code_playground/utils/project/project.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +27,14 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     return Consumer<ProjectsProvider>(
       builder: (context, value, child) {
         return ProjectsPageLayout(
+          header: Column(
+            children: [
+              Text(
+                "Projects",
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ],
+          ),
           child: AnimatedSwitcher(
             duration: Duration(milliseconds: 350),
             child: ProjectsList(

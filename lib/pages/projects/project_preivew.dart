@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:code_playground/widgets/shaped_icon.dart';
 import 'package:flutter/material.dart';
 
