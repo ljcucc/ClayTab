@@ -47,6 +47,17 @@ class _ProjectsSectionState extends State<ProjectsSection> {
                     (states) => Theme.of(context).colorScheme.surface),
               ),
               SizedBox(height: 24),
+              Container(
+                width: double.infinity,
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    OpenProjectButton(),
+                  ],
+                ),
+              ),
+              SizedBox(height: 24),
             ],
           ),
           child: AnimatedSwitcher(

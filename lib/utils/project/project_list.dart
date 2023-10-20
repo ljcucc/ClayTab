@@ -41,9 +41,31 @@ class ExternalProjects extends Projects {
 
   @override
   Future<void> read() async {
+    if (!await listfile.exists()) {
+      await listfile.create();
+      write();
+    }
     final sourceString = await listfile.readAsString();
     final List<dynamic> jsonList =
         await const JsonDecoder().convert(sourceString);
     projects = jsonList.map((e) => FolderProjectData.fromMap(e)).toList();
+  }
+
+  Future<void> write() async {
+    final sourceString = const JsonEncoder().convert(
+      projects
+          .map(
+            (e) => (e as FolderProjectData).toJson,
+          )
+          .toList(),
+    );
+    print(sourceString);
+    await listfile.writeAsString(sourceString);
+  }
+
+  Future<void> create(ProjectData project) async {
+    read();
+    projects.add(project);
+    write();
   }
 }

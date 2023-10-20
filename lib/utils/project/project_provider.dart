@@ -13,14 +13,23 @@ class ProjectsProvider extends ChangeNotifier {
 
   init(Directory inAppDirectory) {
     _internalProjects = InternalProjects(inAppDirectory: inAppDirectory);
+    _externalProjects = ExternalProjects.fromInAppDirectory(inAppDirectory);
     update();
   }
 
   update() async {
     _projects = [];
     await _internalProjects!.read();
+    await _externalProjects!.read();
     _projects.addAll(_internalProjects!.projects);
+    _projects.addAll(_externalProjects!.projects);
     notifyListeners();
+  }
+
+  /// Open a project directory, add project data to external project list
+  open(ProjectData project) async {
+    await _externalProjects!.create(project);
+    await update();
   }
 
   get projects {
