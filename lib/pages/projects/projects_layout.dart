@@ -26,11 +26,11 @@ class ProjectsPageLayout extends StatelessWidget {
               children: [
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 0, horizontal: 32)
+                      const EdgeInsets.symmetric(vertical: 0, horizontal: 24)
                           .copyWith(bottom: 0),
                   child: header,
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: 0),
                 Expanded(child: child),
               ],
             ),

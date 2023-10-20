@@ -5,73 +5,52 @@ import 'package:flutter/material.dart';
 import 'package:code_playground/utils/project/project.dart';
 import 'package:code_playground/utils/project/project_list.dart';
 
-class ProjectsList extends StatefulWidget {
+class ProjectsListView extends StatelessWidget {
   final List<ProjectData> projects;
   final Widget? header;
 
-  const ProjectsList({
+  const ProjectsListView({
     super.key,
     required this.projects,
     this.header,
   });
 
   @override
-  State<ProjectsList> createState() => _ProjectsListState();
-}
-
-class _ProjectsListState extends State<ProjectsList> {
-  Projects? projectList;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return ProjectsListView(controller: this);
-  }
-}
+    return LayoutBuilder(builder: (context, constrain) {
+      final crossAxisCount = (constrain.maxWidth.round() / 280).round();
 
-class ProjectsListView extends StatelessWidget {
-  final _ProjectsListState controller;
-
-  const ProjectsListView({
-    super.key,
-    required this.controller,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final double gap = MediaQuery.of(context).size.width > 600 ? 16 : 0;
-    return SizedBox.expand(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(24),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                controller.widget.header ?? Container(),
-                Wrap(
-                  runSpacing: gap,
-                  spacing: gap,
-                  children: [
-                    for (ProjectData data in controller.widget.projects)
-                      ProjectTile(
-                        name: data.name,
-                        preview: ShapedIconData(
-                          shape: ShapeTypes.Scallop,
-                          icon: Icons.code,
-                        ),
-                      ),
-                  ],
+      return SizedBox.expand(
+        child: Column(
+          children: [
+            header ?? Container(),
+            Expanded(
+              child: GridView.builder(
+                padding:
+                    EdgeInsets.symmetric(horizontal: 24).copyWith(bottom: 24),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  // maxCrossAxisExtent: 280,
+                  crossAxisCount: crossAxisCount,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  childAspectRatio: crossAxisCount == 1 ? 3 / 2 : 1,
                 ),
-              ],
+                itemBuilder: (context, index) {
+                  final data = projects[index];
+                  return ProjectTile(
+                    name: data.name,
+                    preview: ShapedIconData(
+                      shape: ShapeTypes.Scallop,
+                      icon: Icons.code,
+                    ),
+                  );
+                },
+                itemCount: projects.length,
+              ),
             ),
-          ),
+          ],
         ),
-      ),
-    );
+      );
+    });
   }
 }

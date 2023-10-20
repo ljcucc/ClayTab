@@ -27,12 +27,11 @@ class ProjectTile extends StatelessWidget {
       width: MediaQuery.of(context).size.width > 600 ? 200 : double.infinity,
       height: MediaQuery.of(context).size.width > 600 ? 200 : null,
       child: Card(
-        // color: tileColorScheme.primaryContainer,
         elevation: 0,
+        margin: EdgeInsets.zero,
         shadowColor: Colors.transparent,
         clipBehavior: Clip.hardEdge,
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
           borderRadius: BorderRadius.circular(16),
         ),
         child: InkWell(
@@ -44,12 +43,13 @@ class ProjectTile extends StatelessWidget {
           },
           child: Column(
             children: [
-              if (MediaQuery.of(context).size.width > 600)
-                Expanded(
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0).copyWith(bottom: 0),
                   child: Container(
                     clipBehavior: Clip.hardEdge,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     child: ProjectPreview(
                       colorScheme: tileColorScheme,
@@ -57,6 +57,7 @@ class ProjectTile extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
               ListTile(
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 16).copyWith(right: 8),
