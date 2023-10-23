@@ -38,6 +38,7 @@ class ProjectsListView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final data = projects[index];
                   return ProjectTile(
+                    project: projects[index],
                     name: data.name,
                     preview: ShapedIconData(
                       shape: ShapeTypes.Scallop,

@@ -1,3 +1,4 @@
+import 'package:code_playground/pages/settings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:code_playground/pages/home/home.dart';
@@ -7,9 +8,10 @@ import 'package:code_playground/pages/home/home_layout.dart';
 import 'package:code_playground/widgets/toolbar_item.dart';
 
 // sections page
-import 'package:code_playground/pages/extensions/extensions.dart';
-import 'package:code_playground/pages/labs/labs.dart';
+import 'package:code_playground/pages/explore/explore.dart';
+import 'package:code_playground/pages/profile/profile.dart';
 import 'package:code_playground/pages/projects/projects.dart';
+import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 
 class HomePageView extends StatelessWidget {
   final HomePageState controller;
@@ -21,7 +23,9 @@ class HomePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Hero must have a unique non-null tag. In this case, the following tag: <default FloatingActionButton tag>
     final fab = FloatingActionButton(
+      heroTag: MediaQuery.of(context).size.width < 600 ? "compact" : "expanded",
       backgroundColor: Theme.of(context).colorScheme.primary,
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
       elevation: 0,
@@ -53,16 +57,17 @@ class HomePageView extends StatelessWidget {
           body: ProjectsSection(),
           icon: Icon(Icons.grid_view),
           label: Text("Projects"),
+          fab: MediaQuery.of(context).size.width < 600 ? fab : null,
         ),
         HomePageSectionDestination(
-          body: ExtensionsPage(),
-          icon: Icon(Icons.extension_outlined),
-          label: Text("Extensions"),
+          body: ExplorePage(),
+          icon: Icon(Icons.explore_outlined),
+          label: Text("Explore"),
         ),
         HomePageSectionDestination(
-          body: LabsPage(),
-          icon: Icon(Icons.science_outlined),
-          label: Text("Labs"),
+          body: ProfilePage(),
+          icon: Icon(Icons.account_circle_outlined),
+          label: Text("Profile"),
         ),
       ],
     );

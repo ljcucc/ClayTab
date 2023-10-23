@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LabsPage extends StatelessWidget {
-  const LabsPage({super.key});
+class ExplorePage extends StatelessWidget {
+  const ExplorePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class LabsPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  "Labs",
+                  "Explore",
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),

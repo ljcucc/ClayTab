@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart' as p;
 
@@ -78,5 +79,10 @@ class FolderProjectData extends ProjectData {
       "path": path.path,
       "date": date.millisecondsSinceEpoch.toString(),
     };
+  }
+
+  @override
+  String toString() {
+    return const JsonEncoder().convert(toJson);
   }
 }

@@ -36,37 +36,39 @@ class _HomePageLayoutState extends State<HomePageLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MaterialContainer(
-        elevation: 2,
-        borderRadius: BorderRadius.zero,
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        child: Row(
+    return MaterialContainer(
+      elevation: 2,
+      borderRadius: BorderRadius.zero,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Row(
           children: [
-            NavigationRail(
-              backgroundColor: Colors.transparent,
-              labelType: NavigationRailLabelType.selected,
-              leading: SafeArea(
-                minimum: EdgeInsets.symmetric(vertical: 8),
-                child: widget.leading ?? Container(),
-              ),
-              trailing: Expanded(
-                child: SafeArea(
-                  minimum: EdgeInsets.symmetric(vertical: 16),
-                  child: Container(child: widget.trailing),
+            if (MediaQuery.of(context).size.width > 600)
+              NavigationRail(
+                backgroundColor: Colors.transparent,
+                labelType: NavigationRailLabelType.selected,
+                leading: SafeArea(
+                  minimum: EdgeInsets.symmetric(vertical: 8),
+                  child: widget.leading ?? Container(),
                 ),
-              ),
-              destinations: [
-                for (var item in widget.destinations)
-                  NavigationRailDestination(
-                    icon: item.icon,
-                    label: item.label,
+                trailing: Expanded(
+                  child: SafeArea(
+                    minimum: EdgeInsets.symmetric(vertical: 16),
+                    child: Container(child: widget.trailing),
                   ),
-              ],
-              selectedIndex: selectedIndex,
-              onDestinationSelected: (value) =>
-                  setState(() => selectedIndex = value),
-            ),
+                ),
+                destinations: [
+                  for (var item in widget.destinations)
+                    NavigationRailDestination(
+                      icon: item.icon,
+                      label: item.label,
+                    ),
+                ],
+                selectedIndex: selectedIndex,
+                onDestinationSelected: (value) =>
+                    setState(() => selectedIndex = value),
+              ),
             Expanded(
               child: AnimatedSwitcher(
                 duration: Duration(milliseconds: 100),
@@ -83,8 +85,23 @@ class _HomePageLayoutState extends State<HomePageLayout> {
             ),
           ],
         ),
+        floatingActionButton: widget.destinations[selectedIndex].fab,
+        bottomNavigationBar: MediaQuery.of(context).size.width > 600
+            ? null
+            : NavigationBar(
+                onDestinationSelected: (value) => setState(() {
+                  selectedIndex = value;
+                }),
+                selectedIndex: selectedIndex,
+                destinations: [
+                  for (var item in widget.destinations)
+                    NavigationDestination(
+                      icon: item.icon,
+                      label: item.label.data ?? "",
+                    ),
+                ],
+              ),
       ),
-      floatingActionButton: widget.destinations[selectedIndex].fab,
     );
   }
 }

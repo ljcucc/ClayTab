@@ -25,19 +25,17 @@ class _OpenProjectButtonState extends State<OpenProjectButton> {
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.of(context).size.width < 600)
-      return FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
-        elevation: 0,
-        onPressed: openProjectFolder,
-        child: Icon(Icons.file_open_outlined),
-      );
+    var label = "Open Folder";
+    if (MediaQuery.of(context).size.width < 600) {
+      label = "Open";
+    }
+
     return FloatingActionButton.extended(
       backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
       elevation: 0,
       onPressed: openProjectFolder,
       icon: Icon(Icons.file_open_outlined),
-      label: Text("Open folder"),
+      label: Text(label),
     );
   }
 }

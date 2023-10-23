@@ -1,18 +1,23 @@
 import 'package:code_playground/pages/projects/project_preivew.dart';
 import 'package:code_playground/pages/workspace/workspace.dart';
+import 'package:code_playground/utils/project/project.dart';
 import 'package:code_playground/widgets/shaped_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ProjectTile extends StatelessWidget {
+  final ProjectData project;
   final ShapedIconData preview;
   final String name;
 
   const ProjectTile({
     super.key,
+    required this.project,
     required this.name,
     required this.preview,
   });
+
+  void openWorkspace() {}
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +43,9 @@ class ProjectTile extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
               fullscreenDialog: true,
-              builder: (context) => WorkspaceMainLayout(),
+              builder: (context) => WorkspaceMainLayout(
+                project: project,
+              ),
             ));
           },
           child: Column(

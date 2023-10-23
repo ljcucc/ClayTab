@@ -18,6 +18,13 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   final ProjectsProvider _projectsProvider = ProjectsProvider();
+  int selectedTab = 0;
+
+  void onSelectedIndexChange(index) {
+    setState(() {
+      selectedTab = index;
+    });
+  }
 
   @override
   void initState() {

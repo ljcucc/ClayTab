@@ -36,3 +36,14 @@ class ProjectsProvider extends ChangeNotifier {
     return _projects;
   }
 }
+
+class ProjectProvider extends ChangeNotifier {
+  ProjectData? _project;
+
+  open(ProjectData project) {
+    _project = project;
+    notifyListeners();
+  }
+
+  get project => _project;
+}

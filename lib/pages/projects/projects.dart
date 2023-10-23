@@ -1,4 +1,5 @@
 import 'package:code_playground/pages/projects/open_project.dart';
+import 'package:code_playground/pages/projects/project_search.dart';
 import 'package:code_playground/utils/project/project_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -33,20 +34,8 @@ class _ProjectsSectionState extends State<ProjectsSection> {
         return ProjectsPageLayout(
           header: Column(
             children: [
-              SearchAnchor.bar(
-                barHintText: "Search",
-                isFullScreen: MediaQuery.of(context).size.width < 600,
-                viewElevation: 0,
-                barElevation: MaterialStateProperty.resolveWith((states) => 0),
-                viewBackgroundColor: Theme.of(context).colorScheme.surface,
-                barBackgroundColor: MaterialStateProperty.resolveWith(
-                  (states) => Theme.of(context).colorScheme.surface,
-                ),
-                suggestionsBuilder: (context, controller) => [Text("item")],
-                barOverlayColor: MaterialStateProperty.resolveWith(
-                    (states) => Theme.of(context).colorScheme.surface),
-              ),
-              SizedBox(height: 24),
+              ProjectSearchView(),
+              SizedBox(height: 16),
               Container(
                 width: double.infinity,
                 child: Wrap(
