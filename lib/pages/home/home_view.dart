@@ -25,7 +25,7 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     // Hero must have a unique non-null tag. In this case, the following tag: <default FloatingActionButton tag>
     final fab = FloatingActionButton(
-      heroTag: MediaQuery.of(context).size.width < 600 ? "compact" : "expanded",
+      heroTag: MediaQuery.of(context).size.width < 840 ? "compact" : "expanded",
       backgroundColor: Theme.of(context).colorScheme.primary,
       foregroundColor: Theme.of(context).colorScheme.onPrimary,
       elevation: 0,
@@ -34,6 +34,33 @@ class HomePageView extends StatelessWidget {
         controller.onNewProject();
       },
     );
+
+    // return AdaptiveScaffold(
+    //   selectedIndex: controller.selectedTab,
+    //   onSelectedIndexChange: controller.onSelectedIndexChange,
+    //   smallBreakpoint: const WidthPlatformBreakpoint(end: 700),
+    //   mediumBreakpoint: const WidthPlatformBreakpoint(begin: 700, end: 1000),
+    //   largeBreakpoint: const WidthPlatformBreakpoint(begin: 1000),
+    //   useDrawer: false,
+    //   destinations: const [
+    //     NavigationDestination(
+    //       icon: Icon(Icons.grid_view),
+    //       label: "Projects",
+    //     ),
+    //     NavigationDestination(
+    //       icon: Icon(Icons.extension_outlined),
+    //       label: "Extensions",
+    //     ),
+    //     NavigationDestination(
+    //       icon: Icon(Icons.settings_outlined),
+    //       label: "Settings",
+    //     ),
+    //   ],
+    //   body: (_) =>
+    //       controller.selectedTab == 2 ? SettingsPage() : ProjectsSection(),
+    //   smallBody: (_) =>
+    //       controller.selectedTab == 2 ? SettingsPage() : ProjectsSection(),
+    // );
 
     return HomePageLayout(
       trailing: Column(children: [
@@ -57,7 +84,7 @@ class HomePageView extends StatelessWidget {
           body: ProjectsSection(),
           icon: Icon(Icons.grid_view),
           label: Text("Projects"),
-          fab: MediaQuery.of(context).size.width < 600 ? fab : null,
+          fab: MediaQuery.of(context).size.width < 840 ? fab : null,
         ),
         HomePageSectionDestination(
           body: ExplorePage(),

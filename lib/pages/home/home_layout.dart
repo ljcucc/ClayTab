@@ -44,7 +44,7 @@ class _HomePageLayoutState extends State<HomePageLayout> {
         backgroundColor: Colors.transparent,
         body: Row(
           children: [
-            if (MediaQuery.of(context).size.width > 600)
+            if (MediaQuery.of(context).size.width > 840)
               NavigationRail(
                 backgroundColor: Colors.transparent,
                 labelType: NavigationRailLabelType.selected,
@@ -86,7 +86,7 @@ class _HomePageLayoutState extends State<HomePageLayout> {
           ],
         ),
         floatingActionButton: widget.destinations[selectedIndex].fab,
-        bottomNavigationBar: MediaQuery.of(context).size.width > 600
+        bottomNavigationBar: MediaQuery.of(context).size.width > 840
             ? null
             : NavigationBar(
                 onDestinationSelected: (value) => setState(() {

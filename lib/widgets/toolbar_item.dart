@@ -51,6 +51,7 @@ class ToolbarItem extends StatelessWidget {
   final Color? backgroundColor;
   final VoidCallback? onTap;
   final bool? expanded;
+  final String? tooltip;
 
   const ToolbarItem({
     super.key,
@@ -58,27 +59,31 @@ class ToolbarItem extends StatelessWidget {
     this.backgroundColor,
     this.onTap,
     this.expanded,
+    this.tooltip,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 48,
-      width: 48,
-      child: IconButton(
-        iconSize: 24,
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
-            return backgroundColor ?? Colors.transparent ?? backgroundColor;
-          }),
-          shape: MaterialStateProperty.resolveWith((states) {
-            return RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            );
-          }),
+    return Tooltip(
+      message: tooltip ?? "",
+      child: SizedBox(
+        height: 48,
+        width: 48,
+        child: IconButton(
+          iconSize: 24,
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith((states) {
+              return backgroundColor ?? Colors.transparent;
+            }),
+            shape: MaterialStateProperty.resolveWith((states) {
+              return RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              );
+            }),
+          ),
+          onPressed: onTap ?? () {},
+          icon: icon,
         ),
-        onPressed: onTap ?? () {},
-        icon: icon,
       ),
     );
   }
