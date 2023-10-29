@@ -14,6 +14,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 
 class CodeEditor extends StatefulWidget {
+  final bool showKeyboard;
+
+  const CodeEditor({
+    super.key,
+    this.showKeyboard = false,
+  });
+
   @override
   _CodeEditorState createState() => _CodeEditorState();
 }
@@ -76,9 +83,19 @@ class _CodeEditorState extends State<CodeEditor> {
             controller: _codeController!,
             textStyle: GoogleFonts.robotoMono().copyWith(fontSize: 14),
             smartQuotesType: SmartQuotesType.enabled,
+            focusNode: FirstDisabledFocusNode(),
+            horizontalScroll: true,
           ),
         ),
       ),
     );
+  }
+}
+
+class FirstDisabledFocusNode extends FocusNode {
+  @override
+  bool consumeKeyboardToken() {
+    // prevents keyboard from showing on first focus
+    return false;
   }
 }
