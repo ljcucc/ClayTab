@@ -1,8 +1,14 @@
 import 'package:code_playground/pages/workspace/experiment_workspace/experiment_workspace_view.dart';
+import 'package:code_playground/pages/workspace/workspace.dart';
 import 'package:flutter/material.dart';
 
 class ExperimentWorkspace extends StatefulWidget {
-  const ExperimentWorkspace({super.key});
+  final List<WorkspaceDestination> destinations;
+
+  const ExperimentWorkspace({
+    super.key,
+    required this.destinations,
+  });
 
   @override
   State<ExperimentWorkspace> createState() => ExperimentWorkspaceState();

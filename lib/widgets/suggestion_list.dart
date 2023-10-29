@@ -60,7 +60,7 @@ class SuggestionList extends StatelessWidget {
                             ),
                             child: SingleChildScrollView(
                               child: Container(
-                                padding: EdgeInsets.all(8),
+                                padding: EdgeInsets.all(16),
                                 child: Text(
                                   "This is a demo of how to use a method that is selected.",
                                 ),

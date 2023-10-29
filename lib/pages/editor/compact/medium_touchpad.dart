@@ -1,14 +1,19 @@
+import 'package:code_playground/pages/editor/compact/compact_editor.dart';
 import 'package:code_playground/widgets/suggestion_list.dart';
 import 'package:code_playground/pages/workspace/compact_workspace/compact_workspace.dart';
 import 'package:code_playground/widgets/touchpad.dart';
 import 'package:flutter/material.dart';
 
 class MediumTouchpad extends StatelessWidget {
-  final CompactLayoutState controller;
+  final CompactEditorViewState controller;
+  final double maxHeight;
+  final double minHeight;
 
   const MediumTouchpad({
     super.key,
     required this.controller,
+    this.maxHeight = 310,
+    this.minHeight = 200,
   });
 
   @override
@@ -16,7 +21,7 @@ class MediumTouchpad extends StatelessWidget {
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
       curve: Curves.easeOutQuint,
-      height: controller.onType ? 310 : 200,
+      height: controller.onType ? maxHeight : minHeight,
       padding: EdgeInsets.only(top: 4),
       child: GestureDetector(
         onTapDown: (d) {
@@ -30,7 +35,11 @@ class MediumTouchpad extends StatelessWidget {
               child: SuggestionList(),
             )),
             Flexible(
-              child: Touchpad(),
+              child: Touchpad(
+                onClose: () => controller.setState(() {
+                  controller.toggleToucpad = false;
+                }),
+              ),
             ),
           ],
         ),

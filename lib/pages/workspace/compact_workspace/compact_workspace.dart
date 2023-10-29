@@ -1,9 +1,13 @@
 import 'package:code_playground/pages/workspace/compact_workspace/compact_workspace_view.dart';
+import 'package:code_playground/pages/workspace/workspace.dart';
 import 'package:flutter/material.dart';
 
 class CompactWorkspace extends StatefulWidget {
+  final List<WorkspaceDestination> desinations;
+
   const CompactWorkspace({
     super.key,
+    required this.desinations,
   });
 
   @override
@@ -11,11 +15,11 @@ class CompactWorkspace extends StatefulWidget {
 }
 
 class CompactLayoutState extends State<CompactWorkspace> {
-  bool _onType = false;
+  int _selectedTab = 1;
 
-  get onType => _onType;
-  set onType(value) => setState(() {
-        _onType = value;
+  int get selectedTab => _selectedTab;
+  set selectedTab(int index) => setState(() {
+        _selectedTab = index;
       });
 
   @override

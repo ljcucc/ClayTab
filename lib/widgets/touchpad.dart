@@ -4,12 +4,14 @@ class DirectionButton extends StatelessWidget {
   final Widget icon;
   final Color? color;
   final double? opacity;
+  final VoidCallback? onTap;
 
   const DirectionButton({
     super.key,
     required this.icon,
     this.color,
     this.opacity,
+    this.onTap,
   });
 
   @override
@@ -21,7 +23,7 @@ class DirectionButton extends StatelessWidget {
               .withOpacity(opacity ?? .15)),
       child: InkWell(
         borderRadius: BorderRadius.circular(400),
-        onTap: () {},
+        onTap: onTap,
         child: Container(
           constraints: BoxConstraints.expand(),
           padding: EdgeInsets.all(16),
@@ -47,7 +49,12 @@ class DirectionTouchpad extends StatelessWidget {
 }
 
 class DirectionButtonsGroup extends StatelessWidget {
-  const DirectionButtonsGroup({super.key});
+  final VoidCallback? onClose;
+
+  const DirectionButtonsGroup({
+    super.key,
+    required this.onClose,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +65,8 @@ class DirectionButtonsGroup extends StatelessWidget {
         SizedBox(
           width: 65,
           child: DirectionButton(
-            icon: Icon(Icons.select_all),
+            icon: Icon(Icons.arrow_back),
+            onTap: onClose,
           ),
         ),
         SizedBox(
@@ -106,7 +114,12 @@ class DirectionButtonsGroup extends StatelessWidget {
 }
 
 class Touchpad extends StatelessWidget {
-  const Touchpad({super.key});
+  final VoidCallback? onClose;
+
+  const Touchpad({
+    super.key,
+    this.onClose,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +131,9 @@ class Touchpad extends StatelessWidget {
       children: [
         Expanded(
           // aspectRatio: 1,
-          child: DirectionButtonsGroup(),
+          child: DirectionButtonsGroup(
+            onClose: onClose,
+          ),
         ),
       ],
     );

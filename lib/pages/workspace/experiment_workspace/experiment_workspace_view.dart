@@ -19,7 +19,7 @@ class ExperimentWorkspaceView extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final navRail = NavigationRail(
-      labelType: NavigationRailLabelType.selected,
+      labelType: NavigationRailLabelType.all,
       backgroundColor: Colors.transparent,
       leading: Padding(
         padding: const EdgeInsets.only(bottom: 24),
@@ -45,23 +45,12 @@ class ExperimentWorkspaceView extends StatelessWidget {
           ),
         ),
       ),
-      destinations: const [
-        NavigationRailDestination(
-          icon: Icon(Symbols.play_arrow),
-          label: Text("Run"),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Symbols.code_blocks_rounded),
-          label: Text("Editor"),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Symbols.folder),
-          label: Text("Assets"),
-        ),
-        NavigationRailDestination(
-          icon: Icon(Symbols.folder_data),
-          label: Text("Git"),
-        ),
+      destinations: [
+        for (var destination in controller.widget.destinations)
+          NavigationRailDestination(
+            icon: destination.icon,
+            label: Text(destination.label),
+          ),
       ],
       selectedIndex: controller.selectedTab,
       onDestinationSelected: controller.switchTab,
@@ -75,45 +64,10 @@ class ExperimentWorkspaceView extends StatelessWidget {
         children: [
           navRail,
           Expanded(
-            child: Scaffold(
-              backgroundColor: Colors.transparent,
-              appBar: AppBar(
-                leading: Container(),
-                backgroundColor: Colors.transparent,
-                scrolledUnderElevation: 0,
-              ),
-              body: SafeArea(
-                minimum: EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    Flexible(
-                      flex: 5,
-                      child: MaterialContainer(
-                        backgroundColor: colorScheme.surface,
-                        borderRadius: BorderRadius.circular(24),
-                        elevation: 2,
-                        child: CodeEditor(),
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    SizedBox(
-                      width: 300,
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: SuggestionList(),
-                          ),
-                          SizedBox(height: 8),
-                          SizedBox(
-                            height: 300,
-                            child: Touchpad(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            child: AnimatedSwitcher(
+              duration: Duration(milliseconds: 150),
+              child: controller.widget.destinations[controller.selectedTab]
+                  .builder(context),
             ),
           ),
         ],
