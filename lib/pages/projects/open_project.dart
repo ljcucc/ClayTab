@@ -31,6 +31,7 @@ class _OpenProjectButtonState extends State<OpenProjectButton> {
     }
 
     return FloatingActionButton.extended(
+      heroTag: "open",
       backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
       elevation: 0,
       onPressed: openProjectFolder,
