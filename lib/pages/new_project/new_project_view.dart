@@ -16,26 +16,30 @@ class NewProjectPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final environmentSelector = EnvironmentSelector(
-      options: [
-        EnvironmentOption(
-          title: "Internal",
-          description:
-              "Create a blank project inside application folder. You'll need to export and import if you're using android or iOS.",
-        ),
-        EnvironmentOption(
-          title: "External",
-          description:
-              "Create a blank project outside application, which will ask your workspace folder, or create in shared folder.",
-        ),
-        EnvironmentOption(
-          title: "Open Existing",
-          description: "Open the existing folder on your disk.",
-        ),
-      ],
-      onSelected: controller.onEnvSelected,
-      selected: controller.selectedEnv,
-    );
+    // final environmentSelector = EnvironmentSelector(
+    //   options: [
+    //     EnvironmentOption(
+    //       title: "Internal",
+    //       description:
+    //           "Create a blank project inside application folder. You'll need to export and import if you're using android or iOS.",
+    //     ),
+    //     EnvironmentOption(
+    //       title: "External",
+    //       description:
+    //           "Create a blank project outside application, which will ask your workspace folder, or create in shared folder.",
+    //     ),
+    //     EnvironmentOption(
+    //       title: "Open Existing",
+    //       description: "Open the existing folder on your disk.",
+    //     ),
+    //     EnvironmentOption(
+    //       title: "Clone from Git",
+    //       description: "Git Clone a repository from the internet.",
+    //     ),
+    //   ],
+    //   onSelected: controller.onEnvSelected,
+    //   selected: controller.selectedEnv,
+    // );
 
     final shape = ShapeTypes.values[controller.selectedEnv];
 
@@ -61,7 +65,7 @@ class NewProjectPageView extends StatelessWidget {
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   children: [
-                    environmentSelector,
+                    // environmentSelector,
                     NewProjectForm(
                       onNameChanged: controller.onNameChanged,
                     ),
