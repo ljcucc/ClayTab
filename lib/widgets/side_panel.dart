@@ -5,11 +5,13 @@ class SidePanel extends StatelessWidget {
   final bool open;
   final Widget child;
   final double? width;
+  final BorderRadius? borderRadius;
 
   const SidePanel({
     super.key,
     required this.open,
     required this.child,
+    this.borderRadius,
     this.width,
   });
 
@@ -17,16 +19,16 @@ class SidePanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final double width = open ? (this.width ?? 316) : 0;
     return AnimatedContainer(
-      curve: Curves.easeOutQuint,
+      curve: Curves.easeOutCubic,
       width: width,
       clipBehavior: Clip.hardEdge,
       duration: const Duration(milliseconds: 350),
-      alignment: Alignment.topRight,
+      // alignment: Alignment.topRight,
       decoration: BoxDecoration(),
       child: Padding(
         padding: const EdgeInsets.only(right: 12.0),
         child: MaterialContainer(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: borderRadius ?? BorderRadius.circular(24),
           elevation: 0,
           // backgroundColor: Theme.of(context).colorScheme.surface,
           child: SingleChildScrollView(
@@ -36,7 +38,7 @@ class SidePanel extends StatelessWidget {
               child: SizedBox.expand(
                 child: Column(
                   children: [
-                    child,
+                    Expanded(child: child),
                   ],
                 ),
               ),
